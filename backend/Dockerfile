@@ -34,10 +34,12 @@ COPY backend/package.json backend/
 COPY frontend/package.json frontend/
 RUN npm ci --omit=dev --workspace @sic/backend --include-workspace-root
 
-# Lo compilado + cliente Prisma generado + esquema (para migraciones en runtime si aplica)
+# Lo compilado + cliente Prisma generado + esquema y migraciones
 COPY --from=build /app/backend/dist ./backend/dist
 COPY --from=build /app/node_modules/.prisma ./node_modules/.prisma
 COPY backend/prisma ./backend/prisma
+COPY backend/scripts ./backend/scripts
 
 EXPOSE 3000
-CMD ["node", "backend/dist/main.js"]
+# Aplica migraciones (idempotente) y arranca
+CMD ["sh", "-c", "node backend/scripts/migrate.mjs && node backend/dist/main.js"]
