@@ -33,11 +33,13 @@ for (const name of names) {
     continue;
   }
   const path = join(migrationsDir, name, 'migration.sql');
-  // Los GRANT apuntan al rol del entorno de desarrollo; en la VM el usuario de
-  // DATABASE_URL ya es dueño de las tablas, así que se omiten.
+  // Sentencias específicas del entorno de desarrollo (roles/grants/ownership).
+  // En Cloud SQL el usuario de DATABASE_URL es dueño de todo; estas líneas
+  // (ALTER OWNER, GRANT/REVOKE a roles de dev) no aplican y fallan.
+  const skip = /^(GRANT |REVOKE |ALTER TABLE \w+ OWNER TO )/i;
   const sql = readFileSync(path, 'utf8')
     .split('\n')
-    .filter((line) => !line.trimStart().toUpperCase().startsWith('GRANT '))
+    .filter((line) => !skip.test(line.trimStart()))
     .join('\n');
   console.log(`apply ${name}`);
   await client.query(sql);
