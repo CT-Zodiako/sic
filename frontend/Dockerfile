@@ -7,7 +7,9 @@ COPY frontend/package.json frontend/
 RUN npm ci
 COPY frontend ./frontend
 COPY package.json ./
-RUN npm run build --prefix frontend
+# Build SIN optimización: la optimización tree-shakea @angular/compiler
+# y rompe los bindings de los componentes dinámicos (formularios muertos)
+RUN npm run build --prefix frontend -- --configuration development
 
 FROM nginx:1.27-alpine AS serve
 COPY --from=build /app/frontend/dist/sic-frontend/browser /usr/share/nginx/html
