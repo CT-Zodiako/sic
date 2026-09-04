@@ -9,8 +9,16 @@ export class HomeRedirectComponent implements OnInit {
   private readonly router = inject(Router);
   ngOnInit() {
     const go = () => {
-      const first = this.context.menu.find((item) => item.navigable && item.route);
-      if (first?.route) void this.router.navigateByUrl(first.route);
+      const findRoute = (items: typeof this.context.menu): string | undefined => {
+        for (const item of items) {
+          if (item.navigable && item.route) return item.route;
+          const child = findRoute(item.children ?? []);
+          if (child) return child;
+        }
+        return undefined;
+      };
+      const first = findRoute(this.context.menu);
+      if (first) void this.router.navigateByUrl(first);
     };
     if (this.context.menu.length) { go(); return; }
     const unsubscribe = this.context.subscribe(() => { if (this.context.menu.length) { go(); unsubscribe(); } });
