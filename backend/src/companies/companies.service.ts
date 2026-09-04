@@ -17,7 +17,7 @@ export type CompanyRepository = {
 };
 
 type AuditDelegate = { create(args: { data: Record<string, unknown> }): Promise<unknown> };
-type PrismaClientLike = { company: any; membership: any; auditEvent?: AuditDelegate; $transaction?: (fn: (tx: any) => Promise<unknown>) => Promise<unknown> };
+type PrismaClientLike = { company?: any; membership: any; auditEvent?: AuditDelegate; $transaction?: (fn: (tx: any) => Promise<unknown>) => Promise<unknown> };
 
 function companyOf(value: any): CompanyRecord { return { id: String(value.id), name: String(value.name), taxId: value.taxId ?? undefined, status: value.status, createdAt: value.createdAt, updatedAt: value.updatedAt }; }
 function membershipOf(value: any): MembershipRecord { return { id: String(value.id), userId: String(value.userId), companyId: String(value.companyId), status: value.status, startsAt: value.startsAt, endsAt: value.endsAt }; }

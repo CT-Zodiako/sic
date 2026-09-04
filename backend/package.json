@@ -7,12 +7,16 @@
     "start:dev": "node --watch --experimental-transform-types src/main.ts",
     "test": "node --test test/app.e2e-spec.ts test/http-contract.int-spec.ts test/auth-session.int-spec.ts test/authorization-tenancy.int-spec.ts test/me-context-menu.int-spec.ts test/platform-identities.int-spec.ts test/platform-configuration.int-spec.ts test/company-services.int-spec.ts test/platform-rbac-menu.int-spec.ts test/operational-demo-idor.int-spec.ts test/e2e/pr13-security.e2e-spec.ts src/common/common.spec.ts src/audit/audit.service.spec.ts src/auth/*.spec.ts src/authorization/*.spec.ts src/tenancy/*.spec.ts src/operational-demo/*.spec.ts",
     "test:e2e": "node --test test/e2e/pr13-security.e2e-spec.ts",
-    "seed:dry-run": "node --experimental-transform-types prisma/seed.ts --dry-run"
+    "seed:dry-run": "node --experimental-transform-types prisma/seed.ts --dry-run",
+    "build": "tsc -p tsconfig.json"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
     "rxjs": "^7.8.1"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
   }
 }

@@ -15,6 +15,7 @@ export class PrismaAuthorizationRepository implements AuthorizationRepository {
   private readonly role: AuthorizationDelegate;
   private readonly platformAssignment?: AuthorizationDelegate;
   constructor(membership: AuthorizationDelegate, role: AuthorizationDelegate, platformAssignment?: AuthorizationDelegate) { this.membership = membership; this.role = role; this.platformAssignment = platformAssignment; }
+
   async platform(userId: string) {
     const rows = await (this.platformAssignment?.findMany({ where: { userId }, include: { role: { include: { permissions: { include: { permission: true } } } } } }) ?? Promise.resolve([]));
     return rows.flatMap((link: any) => link.role?.scope === 'PLATFORM' && link.role.status === 'ACTIVE' ? (link.role.permissions ?? []).filter((entry: any) => entry.permission?.status !== 'INACTIVE').map((entry: any) => ({ code: String(entry.permission.code), status: entry.permission.status })) : []);
@@ -39,14 +40,21 @@ export class PrismaAuthorizationRepository implements AuthorizationRepository {
   }
 }
 
-function active(grant: Grant, now: Date) { return grant.status !== 'INACTIVE' && (!grant.startsAt || grant.startsAt <= now) && (!grant.endsAt || grant.endsAt > now); }
+function active(grant: { status?: 'ACTIVE' | 'INACTIVE'; startsAt?: Date; endsAt?: Date }, now: Date) { return grant.status !== 'INACTIVE' && (!grant.startsAt || grant.startsAt <= now) && (!grant.endsAt || grant.endsAt > now); }
 
 export class PermissionResolver {
+  private readonly repository?: AuthorizationRepository;
+  async platformGrants(userId: string): Promise<Array<{ code: string; status?: string }>> {
+    if (this.repository) return this.repository.platform(userId) as Promise<Array<{ code: string; status?: string }>>;
+    const state = await this.load(userId, '');
+    return (state?.platformPermissions ?? []) as Array<{ code: string; status?: string }>;
+  }
   private readonly load: (userId: string, companyId: string) => AuthorizationState | Promise<AuthorizationState | undefined> | undefined;
   private readonly platform: ((userId: string) => Grant[] | Promise<Grant[]>) | undefined;
   constructor(load: ((userId: string, companyId: string) => AuthorizationState | Promise<AuthorizationState | undefined> | undefined) | AuthorizationRepository) {
     this.load = typeof load === 'function' ? load : (userId, companyId) => load.load(userId, companyId);
     this.platform = typeof load === 'function' ? undefined : load.platform?.bind(load);
+    if (typeof load !== 'function') this.repository = load;
   }
   async canPlatformAsync(userId: string, required: string | string[], mode: PolicyMode = 'ANY', now = new Date()) {
     if (!this.platform) {

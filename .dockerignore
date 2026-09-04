@@ -1,0 +1,18 @@
+# ── Dependencias y artefactos de build local
+node_modules/
+dist/
+coverage/
+
+# ── Estado local del agente y secretos
+.atl/
+.codegraph/
+.env
+.env.*
+!.env.example
+
+# ── Git y artefactos de pruebas
+.git/
+test-results/
+.DS_Store
+.claude/
+skills-lock.json

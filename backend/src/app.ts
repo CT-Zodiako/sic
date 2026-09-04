@@ -48,13 +48,13 @@ export class Application {
     this.authInstance = composition.auth; this.audit = composition.audit;
     this.users = composition.users ?? []; this.authConfig = composition.authConfig ?? {};
     this.sessionRepository = composition.sessionRepository;
-    this.companies = composition.companies; this.usersService = composition.usersService ?? new UsersService(this.users, undefined, this.audit ? (event) => this.audit!.append(event as any) : undefined); this.menu = composition.menu; this.menuAdmin = composition.menuAdmin; this.roles = composition.roles; this.permissions = composition.permissions; this.authorization = composition.authorization; this.operationalDemo = composition.operationalDemo; this.services = composition.services;
+    this.companies = composition.companies; this.usersService = composition.usersService ?? new UsersService(this.users, undefined, this.audit ? async (event) => { await this.audit!.append(event as any); } : undefined); this.menu = composition.menu; this.menuAdmin = composition.menuAdmin; this.roles = composition.roles; this.permissions = composition.permissions; this.authorization = composition.authorization; this.operationalDemo = composition.operationalDemo; this.services = composition.services;
   }
 
   get auth(): AuthService {
     if (!this.authInstance) {
       if (!this.sessionRepository) throw new Error('SESSION_REPOSITORY_REQUIRED');
-      this.authInstance = new AuthService(this.users, this.authConfig, this.audit ? (event) => { void this.audit!.append(event as any); } : undefined, this.sessionRepository);
+      this.authInstance = new AuthService(this.users, this.authConfig, this.audit ? (event) => { void void this.audit!.append(event as any); } : undefined, this.sessionRepository);
     }
     return this.authInstance;
   }
@@ -199,8 +199,8 @@ export class Application {
         if (rawHeaders['x-company-id'] === undefined) {
           const isPlatform = await this.authorization.canPlatformAsync(claims.sub, 'platform.admin');
           if (isPlatform) {
-            const platformPermissions = await this.authorization.platform(claims.sub);
-            const codes = new Set(platformPermissions.filter(grant => grant.status !== 'INACTIVE').map(grant => grant.code));
+            const platformPermissions = await this.authorization.platformGrants(claims.sub);
+            const codes = new Set<string>(platformPermissions.filter(grant => grant.status !== 'INACTIVE').map(grant => String(grant.code)));
             const menuItems = await this.menu.list();
             return { status: 200, body: { company: null, permissions: [...codes].sort(), menu: this.menu.filter(codes, menuItems), services: [] }, headers };
           }

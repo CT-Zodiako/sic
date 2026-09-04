@@ -20,7 +20,7 @@ import { ServicesService, PrismaServiceRepository } from './services/services.se
 
 export async function bootstrap() {
   const config = loadConfig();
-  const adapter = new PrismaPg({ connectionString: config.DATABASE_URL });
+  const adapter = new PrismaPg({ connectionString: (config as { DATABASE_URL?: string }).DATABASE_URL! });
   const prisma = new PrismaClient({ adapter });
   const authorizationRepository = new PrismaAuthorizationRepository(prisma.membership as any, prisma.role as any, prisma.platformRoleAssignment as any);
   const users = await prisma.user.findMany();
@@ -29,7 +29,7 @@ export async function bootstrap() {
   const application = createApplication({
     audit,
     users: authUsers,
-    usersService: new UsersService(authUsers, new PrismaUserRepository(prisma.user), event => audit.append(event)),
+    usersService: new UsersService(authUsers, new PrismaUserRepository(prisma.user), async event => { await audit.append(event as never); }),
     sessionRepository: new PrismaSessionRepository(prisma.session),
     companies: new CompaniesService([], [], undefined, new PrismaCompanyRepository(prisma as any)),
     menu: new MenuService([], new PrismaMenuRepository(prisma.menuItem as any)),
@@ -38,7 +38,7 @@ export async function bootstrap() {
     permissions: new PermissionsService(new PrismaPermissionRepository(prisma as any)),
     authorization: new PermissionResolver(authorizationRepository),
     operationalDemo: new OperationalDemoService(new PrismaOperationalDemoRepository(prisma as any)),
-    services: new ServicesService(new PrismaServiceRepository(prisma as any), event => audit.append(event)),
+    services: new ServicesService(new PrismaServiceRepository(prisma as any), async event => { await audit.append(event as never); }),
   });
   const server = await NestFactory.create(createHttpModule(application), { logger: false });
   server.enableShutdownHooks();

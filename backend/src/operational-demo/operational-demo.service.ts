@@ -35,16 +35,16 @@ export class PrismaOperationalDemoRepository implements OperationalDemoRepositor
     });
   }
   async list(context: TenantContext) { return (await this.scoped.findMany(context.companyId, context.serviceCode ? { serviceCode: context.serviceCode } : { })).map(view); }
-  async findVisibleById(context: TenantContext, id: string) { const row = await this.scoped.findUnique(context.companyId, { id }); if (!row) return undefined; if (context.serviceCode && row.serviceCode !== context.serviceCode) return undefined; return view(row); }
+  async findVisibleById(context: TenantContext, id: string) { const row = await this.scoped.findUnique(context.companyId, { id }); if (!row) return undefined; if (context.serviceCode && (row as { serviceCode?: string }).serviceCode !== context.serviceCode) return undefined; return view(row); }
   async create(context: TenantContext, record: OperationalDemoRecord, audit?: OperationalDemoAudit) {
     return this.mutate(async tx => view(await new TenantRepository(tx.operationalDemoRecord).create(context.companyId, { id: record.id, label: record.label, serviceCode: context.serviceCode ?? record.serviceCode ?? 'acueducto', status: record.status })), audit, context);
   }
   async updateVisible(context: TenantContext, id: string, data: Partial<OperationalDemoRecord>, audit?: OperationalDemoAudit) {
-    return this.mutate(async tx => { const repository = new TenantRepository(tx.operationalDemoRecord); const found = await repository.findUnique(context.companyId, { id }); if (!found) return undefined; if (context.serviceCode && found.serviceCode !== context.serviceCode) return undefined; return view(await repository.update(context.companyId, { id }, data as Record<string, unknown>)); }, audit, context);
+    return this.mutate(async tx => { const repository = new TenantRepository(tx.operationalDemoRecord); const found = await repository.findUnique(context.companyId, { id }); if (!found) return undefined; if (context.serviceCode && (found as { serviceCode?: string }).serviceCode !== context.serviceCode) return undefined; return view(await repository.update(context.companyId, { id }, data as Record<string, unknown>)); }, audit, context);
   }
   async deleteVisible(context: TenantContext, id: string, audit?: OperationalDemoAudit) {
     if (!this.client.operationalDemoRecord.delete) throw new Error('REPOSITORY_OPERATION_UNAVAILABLE');
-    return this.mutate(async tx => { const repository = new TenantRepository(tx.operationalDemoRecord); const found = await repository.findUnique(context.companyId, { id }); if (!found) return false; if (context.serviceCode && found.serviceCode !== context.serviceCode) return false; await tx.operationalDemoRecord.delete({ where: { id_companyId: { id, companyId: context.companyId } } }); return true; }, audit, context);
+    return this.mutate(async tx => { const repository = new TenantRepository(tx.operationalDemoRecord); const found = await repository.findUnique(context.companyId, { id }); if (!found) return false; if (context.serviceCode && (found as { serviceCode?: string }).serviceCode !== context.serviceCode) return false; await tx.operationalDemoRecord.delete({ where: { id_companyId: { id, companyId: context.companyId } } }); return true; }, audit, context);
   }
   private async mutate<T>(work: (tx: any) => Promise<T>, audit: OperationalDemoAudit | undefined, context: TenantContext): Promise<T> {
     const run = async (tx: any) => { const result = await work(tx); if (audit && this.client.auditEvent) await tx.auditEvent.create({ data: eventData({ ...audit, companyId: context.companyId }) }); return result; };
