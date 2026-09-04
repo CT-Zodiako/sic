@@ -1,0 +1,40 @@
+# OpenSpec configuration for sic
+project:
+  name: sic
+  lifecycle: greenfield
+  repository_layout: single-root-monorepo
+  frontend_path: frontend
+  backend_path: backend
+  product_requirements: PDR_Sistema_Multiempresa_Permisos.md
+
+sdd:
+  execution_mode: interactive
+  artifact_store: both
+  canonical_store: openspec
+  delivery_strategy: auto-chain
+  phase_rules:
+    init: initialize-project-context-only
+    proposal: requires-explicit-next-phase
+    spec: requires-approved-proposal
+    design: requires-approved-spec
+    tasks: requires-approved-design
+    apply: requires-approved-tasks
+  review_budget_changed_lines: 400
+
+testing:
+  strict_tdd: true
+  frontend:
+    framework: Angular
+    runner: undecided-until-scaffolded
+    planned_harness: Angular TestBed with Jest or Vitest
+  backend:
+    framework: NestJS
+    runner: Jest
+    planned_harness: "@nestjs/testing"
+  commands: unavailable-until-project-scaffolding
+
+technology:
+  frontend: Angular
+  backend: NestJS
+  database: relational-undecided
+  orm: undecided # Prisma or TypeORM requires an explicit architecture decision

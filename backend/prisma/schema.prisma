@@ -1,0 +1,282 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum RoleScope {
+  PLATFORM
+  SHARED
+  COMPANY
+
+  @@map("role_scope")
+}
+
+enum RecordStatus {
+  ACTIVE
+  INACTIVE
+
+  @@map("record_status")
+}
+
+enum PermissionMode {
+  ANY
+  ALL
+
+  @@map("permission_mode")
+}
+
+model User {
+  id                      String                   @id @default(uuid()) @db.Uuid
+  name                    String
+  email                   String                   @unique
+  passwordHash            String                   @map("password_hash")
+  status                  RecordStatus             @default(ACTIVE)
+  lastAccessAt            DateTime?                @map("last_access_at") @db.Timestamptz(6)
+  createdAt               DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt               DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(6)
+  memberships             Membership[]
+  auditEvents             AuditEvent[]
+  sessions                Session[]
+  platformRoleAssignments PlatformRoleAssignment[]
+
+  @@map("users")
+}
+
+model Company {
+  id                     String                  @id @default(uuid()) @db.Uuid
+  name                   String
+  taxId                  String?                 @unique @map("tax_id")
+  status                 RecordStatus            @default(ACTIVE)
+  createdAt              DateTime                @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt              DateTime                @updatedAt @map("updated_at") @db.Timestamptz(6)
+  memberships            Membership[]
+  roles                  Role[]
+  auditEvents            AuditEvent[]
+  operationalDemoRecords OperationalDemoRecord[]
+  serviceAssignments     CompanyService[]
+
+  @@map("companies")
+  roleCompanies RoleCompany[]
+}
+
+model Role {
+  id                  String                   @id @default(uuid()) @db.Uuid
+  name                String
+  description         String?
+  scope               RoleScope
+  companyId           String?                  @map("company_id") @db.Uuid
+  status              RecordStatus             @default(ACTIVE)
+  createdAt           DateTime                 @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt           DateTime                 @updatedAt @map("updated_at") @db.Timestamptz(6)
+  company             Company?                 @relation(fields: [companyId], references: [id])
+  permissions         RolePermission[]
+  assignments         MembershipRole[]
+  platformAssignments PlatformRoleAssignment[]
+
+  @@unique([id, companyId], map: "roles_id_company_id_key")
+  @@index([companyId, status], map: "roles_company_id_status_idx")
+  @@map("roles")
+  companies   RoleCompany[]
+}
+
+model PlatformRoleAssignment {
+  userId String @map("user_id") @db.Uuid
+  roleId String @map("role_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("platform_role_assignments")
+}
+
+model Permission {
+  id          String           @id @default(uuid()) @db.Uuid
+  code        String           @unique
+  resource    String
+  action      String
+  description String?
+  status      RecordStatus     @default(ACTIVE)
+  roleLinks   RolePermission[]
+  menuLinks   MenuPermission[]
+
+  @@map("permissions")
+}
+
+model RolePermission {
+  roleId       String     @map("role_id") @db.Uuid
+  permissionId String     @map("permission_id") @db.Uuid
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+  @@map("role_permissions")
+}
+
+model Membership {
+  id        String           @id @default(uuid()) @db.Uuid
+  userId    String           @map("user_id") @db.Uuid
+  companyId String           @map("company_id") @db.Uuid
+  status    RecordStatus     @default(ACTIVE)
+  startsAt  DateTime         @default(now()) @map("starts_at") @db.Timestamptz(6)
+  endsAt    DateTime?        @map("ends_at") @db.Timestamptz(6)
+  user      User             @relation(fields: [userId], references: [id])
+  company   Company          @relation(fields: [companyId], references: [id])
+  roles     MembershipRole[]
+
+  @@unique([userId, companyId])
+  @@unique([id, companyId], map: "memberships_id_company_id_key")
+  @@index([companyId, id], map: "memberships_company_id_id_idx")
+  @@index([userId, companyId], map: "memberships_user_id_company_id_idx")
+  @@index([userId, status, startsAt], map: "memberships_user_id_status_starts_at_idx")
+  @@map("memberships")
+}
+
+model MembershipRole {
+  membershipId String     @map("membership_id") @db.Uuid
+  roleId       String     @map("role_id") @db.Uuid
+  companyId    String     @map("company_id") @db.Uuid
+  membership   Membership @relation(fields: [membershipId, companyId], references: [id, companyId], onDelete: Cascade)
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([membershipId, roleId])
+  @@index([companyId, membershipId], map: "membership_roles_company_id_membership_id_idx")
+  @@map("membership_roles")
+}
+
+model MenuModule {
+  id        String       @id @default(uuid()) @db.Uuid
+  name      String
+  sortOrder Int          @default(0) @map("sort_order")
+  status    RecordStatus @default(ACTIVE)
+  items     MenuItem[]
+
+  @@map("menu_modules")
+}
+
+model MenuItem {
+  id             String           @id @default(uuid()) @db.Uuid
+  moduleId       String           @map("module_id") @db.Uuid
+  parentId       String?          @map("parent_id") @db.Uuid
+  name           String
+  description    String?
+  route          String?
+  sortOrder      Int              @default(0) @map("sort_order")
+  permissionMode PermissionMode   @default(ANY) @map("permission_mode")
+  status         RecordStatus     @default(ACTIVE)
+  module         MenuModule       @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  parent         MenuItem?        @relation("MenuTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children       MenuItem[]       @relation("MenuTree")
+  permissions    MenuPermission[]
+
+  @@index([moduleId, sortOrder], map: "menu_items_module_id_sort_order_idx")
+  @@index([parentId, sortOrder], map: "menu_items_parent_id_sort_order_idx")
+  @@index([status, parentId, sortOrder], map: "menu_items_status_parent_id_sort_order_idx")
+  @@map("menu_items")
+}
+
+model MenuPermission {
+  menuItemId   String     @map("menu_item_id") @db.Uuid
+  permissionId String     @map("permission_id") @db.Uuid
+  menuItem     MenuItem   @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([menuItemId, permissionId])
+  @@map("menu_permissions")
+}
+
+model Session {
+  id               String    @id @default(uuid()) @db.Uuid
+  userId           String    @map("user_id") @db.Uuid
+  refreshTokenHash String    @unique @map("refresh_token_hash")
+  expiresAt        DateTime  @map("expires_at") @db.Timestamptz(6)
+  revokedAt        DateTime? @map("revoked_at") @db.Timestamptz(6)
+  usedAt           DateTime? @map("used_at") @db.Timestamptz(6)
+  rotatedFromId    String?   @map("rotated_from_id") @db.Uuid
+  createdAt        DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rotatedFrom      Session?  @relation("SessionRotation", fields: [rotatedFromId], references: [id])
+  rotatedTo        Session[] @relation("SessionRotation")
+
+  @@index([userId, expiresAt], map: "sessions_user_id_expires_at_idx")
+  @@index([rotatedFromId], map: "sessions_rotated_from_id_idx")
+  @@map("sessions")
+}
+
+model OperationalDemoRecord {
+  id        String       @id @default(uuid()) @db.Uuid
+  companyId String       @map("company_id") @db.Uuid
+  label     String
+  serviceCode String       @default("acueducto") @map("service_code")
+  status    RecordStatus @default(ACTIVE)
+  createdAt DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  company   Company      @relation(fields: [companyId], references: [id])
+
+  @@unique([id, companyId], map: "operational_demo_records_id_company_id_key")
+  @@index([companyId, id], map: "operational_demo_records_company_id_id_idx")
+  @@index([companyId, status], map: "operational_demo_records_company_id_status_idx")
+  @@index([companyId, serviceCode], map: "operational_demo_records_company_id_service_code_idx")
+  @@map("operational_demo_records")
+}
+
+model Service {
+  id          String           @id @default(uuid()) @db.Uuid
+  code        String           @unique
+  name        String
+  description String?
+  status      RecordStatus     @default(ACTIVE)
+  createdAt   DateTime         @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt   DateTime         @updatedAt @map("updated_at") @db.Timestamptz(6)
+  assignments CompanyService[]
+
+  @@map("services")
+}
+
+model RoleCompany {
+  roleId    String   @map("role_id") @db.Uuid
+  companyId String   @map("company_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  role      Role     @relation(fields: [roleId], references: [id])
+  company   Company  @relation(fields: [companyId], references: [id])
+
+  @@unique([roleId, companyId], map: "role_companies_role_id_company_id_key")
+  @@map("role_companies")
+}
+
+model CompanyService {
+  id         String       @id @default(uuid()) @db.Uuid
+  companyId  String       @map("company_id") @db.Uuid
+  serviceId  String       @map("service_id") @db.Uuid
+  status     RecordStatus @default(ACTIVE)
+  assignedAt DateTime     @default(now()) @map("assigned_at") @db.Timestamptz(6)
+  updatedAt  DateTime     @updatedAt @map("updated_at") @db.Timestamptz(6)
+  company    Company      @relation(fields: [companyId], references: [id])
+  service    Service      @relation(fields: [serviceId], references: [id])
+
+  @@unique([companyId, serviceId], map: "company_services_company_id_service_id_key")
+  @@index([companyId, status], map: "company_services_company_id_status_idx")
+  @@map("company_services")
+}
+
+model AuditEvent {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String?  @map("user_id") @db.Uuid
+  companyId String?  @map("company_id") @db.Uuid
+  resource  String
+  action    String
+  recordId  String?  @map("record_id") @db.Uuid
+  result    String
+  detail    Json?
+  ip        String?
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  user      User?    @relation(fields: [userId], references: [id])
+  company   Company? @relation(fields: [companyId], references: [id])
+
+  @@index([companyId, createdAt], map: "audit_events_company_id_created_at_idx")
+  @@index([userId, createdAt], map: "audit_events_user_id_created_at_idx")
+  @@map("audit_events")
+}

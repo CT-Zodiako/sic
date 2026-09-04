@@ -1,0 +1,17 @@
+# Local Pi runtime state
+.atl/
+.codegraph/
+
+# Local secrets and environment overrides
+.env
+.env.*
+!.env.example
+
+# JavaScript dependencies and generated output
+node_modules/
+dist/
+coverage/
+.DS_Store
+test-results/
+.claude/
+skills-lock.json

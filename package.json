@@ -1,0 +1,37 @@
+{
+  "name": "sic",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "start:backend": "npm --workspace @sic/backend run start:dev",
+    "start:frontend": "npm --workspace @sic/frontend run start:dev",
+    "start:dev": "npm run start:backend & npm run start:frontend",
+    "test:runtime": "node --test backend/test/http-runtime.int-spec.ts",
+    "test:backend": "node --test backend/test/app.e2e-spec.ts backend/test/http-contract.int-spec.ts backend/test/auth-session.int-spec.ts backend/test/authorization-tenancy.int-spec.ts backend/test/me-context-menu.int-spec.ts backend/test/platform-identities.int-spec.ts backend/test/platform-rbac-menu.int-spec.ts backend/test/platform-configuration.int-spec.ts backend/test/company-services.int-spec.ts backend/test/operational-demo-idor.int-spec.ts backend/test/e2e/pr13-security.e2e-spec.ts backend/src/common/common.spec.ts backend/src/audit/audit.service.spec.ts backend/src/auth/auth.service.spec.ts backend/src/authorization/*.spec.ts backend/src/tenancy/*.spec.ts backend/src/operational-demo/*.spec.ts",
+    "test:e2e": "node --test backend/test/e2e/pr13-security.e2e-spec.ts",
+    "test:e2e:browser": "playwright test --config=playwright.config.ts",
+    "seed:dry-run": "node --experimental-transform-types backend/prisma/seed.ts --dry-run",
+    "test:frontend": "npm --workspace @sic/frontend test",
+    "test:integration": "set -e; trap 'docker compose -f docker-compose.test.yml down -v' EXIT; docker compose -f docker-compose.test.yml up -d --wait; docker compose -f docker-compose.test.yml exec -T postgres-test pg_isready -U sic_test -d sic_test; docker compose -f docker-compose.test.yml exec -T postgres-test psql -U sic_test -d sic_test -v ON_ERROR_STOP=1 < backend/prisma/migrations/20260826000000_foundation/migration.sql; docker compose -f docker-compose.test.yml exec -T postgres-test psql -U sic_test -d sic_test -v ON_ERROR_STOP=1 < backend/prisma/migrations/20260827000000_auth_sessions/migration.sql; docker compose -f docker-compose.test.yml exec -T postgres-test psql -U sic_test -d sic_test -v ON_ERROR_STOP=1 < backend/prisma/migrations/20260828000000_context_menu/migration.sql; docker compose -f docker-compose.test.yml exec -T postgres-test psql -U sic_test -d sic_test -v ON_ERROR_STOP=1 < backend/prisma/migrations/20260829000000_rbac_menu_admin/migration.sql; docker compose -f docker-compose.test.yml exec -T postgres-test psql -U sic_test -d sic_test -v ON_ERROR_STOP=1 < backend/prisma/migrations/20260830000000_operational_demo/migration.sql; node --test backend/test/database/schema-invariants.int-spec.ts backend/test/operational-demo-idor.int-spec.ts",
+    "lint": "node tools/lint.mjs",
+    "build": "node --check backend/prisma/seed.ts && node --check backend/test/e2e/pr13-security.e2e-spec.ts && node --check backend/src/app.ts && node --check backend/src/main.ts && node --check backend/src/auth/auth.service.ts && node --check backend/src/auth/jwt.ts && node --check backend/src/auth/session.service.ts && node --check backend/src/authorization/resolver.ts && node --check backend/src/authorization/policy.ts && node --check backend/src/tenancy/context.ts && node --check backend/src/tenancy/repository.ts && node --check backend/src/operational-demo/operational-demo.service.ts && node --check backend/src/companies/companies.service.ts && node --check backend/src/menu/menu.service.ts && node --check frontend/src/app/app.component.ts && node --check frontend/src/main.ts && node --check frontend/src/app/core/http.ts && node --check frontend/src/app/core/auth.store.ts && node --check frontend/src/app/core/auth.api.ts && node --check frontend/src/app/core/interceptors.ts && node --check frontend/src/app/core/routes.ts && node --check frontend/src/app/features/company-context/company-context.api.ts && node --check frontend/src/app/features/company-context/company-context.store.ts && node --check frontend/src/app/features/company-context/guards.ts && node --check frontend/src/app/features/company-context/menu.component.ts && node --check frontend/src/app/features/company-context/screens.ts && node --check frontend/src/app/features/platform-admin/platform-admin.api.ts && node --check frontend/src/app/features/platform-admin/platform-admin.screen.ts && node --check frontend/src/app/features/operational-demo/operational-demo.api.ts && node --check frontend/src/app/features/operational-demo/operational-demo.screen.ts && node --check frontend/src/app/shared/permission.directive.ts"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "dotenv": "^17.4.2",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "prisma": "^7.10.0",
+    "tsx": "^4.23.12"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@sic/frontend",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "start:dev": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build",
+    "build:dev": "ng build --configuration development",
+    "test": "tsx --import @angular/compiler --test src/app/app.component.spec.ts src/app/core/**/*.spec.ts src/app/features/auth/**/*.spec.ts src/app/features/company-context/**/*.spec.ts src/app/features/platform-admin/**/*.spec.ts src/app/features/operational-demo/**/*.spec.ts src/app/shared/**/*.spec.ts ../frontend/e2e/**/*.spec.ts"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.0.0",
+    "@angular/cli": "^19.0.0",
+    "typescript": "~5.6.2"
+  },
+  "dependencies": {
+    "@angular/cdk": "^19.2.19",
+    "@angular/common": "^19.0.0",
+    "@angular/compiler": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.2.25",
+    "@angular/material": "^19.2.19",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/router": "^19.2.25",
+    "rxjs": "^7.8.1",
+    "zone.js": "^0.15.0"
+  }
+}
