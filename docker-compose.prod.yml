@@ -1,6 +1,16 @@
 # Despliegue en VM: clonar el repo y `docker compose -f docker-compose.prod.yml up -d --build`
 # La base de datos llega como variable de entorno (DATABASE_URL).
 services:
+  cloud-sql-proxy:
+    image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.14.3
+    command: --port 5432 ${INSTANCE_CONNECTION_NAME}
+    restart: unless-stopped
+    # En una VM de GCE usa la service account de la VM (necesita rol "Cloud SQL Client").
+    # Si usás clave JSON, descomentá:
+    # volumes:
+    #   - ./key.json:/key.json:ro
+    # command: --port 5432 --credentials-file /key.json ${INSTANCE_CONNECTION_NAME}
+
   backend:
     build:
       context: .
@@ -10,6 +20,9 @@ services:
       PORT: 3000
       DATABASE_URL: ${DATABASE_URL}
       JWT_SECRET: ${JWT_SECRET}
+    depends_on:
+      cloud-sql-proxy:
+        condition: service_started
     restart: unless-stopped
     # healthcheck simple: /v1/health
     healthcheck:
