@@ -28,12 +28,8 @@ export class LoginComponent {
   private tryInject<T>(factory: () => T): T | undefined { try { return factory(); } catch { return undefined; } }
 }
 Component({ selector: 'sic-login', standalone: true, imports: [ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule], template: `<div class="min-h-screen flex flex-col bg-[#f8fafc] text-on-surface font-sans antialiased">
-  <header class="w-full bg-white border-b border-slate-200 px-6 h-16 flex items-center justify-between shadow-sm">
-    <div class="flex items-center gap-3">
-      <span class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center font-bold shadow-md shadow-sky-600/20">S</span>
-      <h1 class="text-base font-bold tracking-tight text-slate-900 hidden sm:block">SIC <span class="text-primary font-semibold">| Servicios Públicos</span></h1>
-    </div>
-
+  <header class="w-full bg-white border-b border-slate-200 px-6 h-20 flex items-center shadow-sm">
+    <img src="/assets/images/logo-full.png" alt="SICAA — Sistema Integral Comercial y Operativo" class="h-16 w-auto max-w-[min(82vw,28rem)] object-contain">
   </header>
 
   <main class="flex-1 grid grid-cols-1 lg:grid-cols-12 w-full max-w-[1500px] mx-auto p-4 lg:p-6 gap-5 items-stretch">
