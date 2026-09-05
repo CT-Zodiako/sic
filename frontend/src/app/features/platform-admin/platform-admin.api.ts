@@ -3,7 +3,7 @@ import { HttpContext, request, type HttpHandler, type HttpResponse } from '../..
 export type Page<T> = { items: T[]; page: number; pageSize: number; total: number };
 export type AdminUser = { id: string; email: string; name: string; status?: 'ACTIVE' | 'INACTIVE' };
 export type AdminCompany = { id: string; name: string; taxId?: string; status?: 'ACTIVE' | 'INACTIVE' };
-export type Membership = { id: string; userId: string; companyId: string; status?: 'ACTIVE' | 'INACTIVE'; roles?: string[] };
+export type Membership = { id: string; userId: string; companyId: string; status?: 'ACTIVE' | 'INACTIVE'; roles?: string[]; roleDetails?: Array<{ id: string; name: string }> };
 export type Role = { id: string; name: string; description?: string; scope: 'PLATFORM' | 'SHARED' | 'COMPANY'; companyId?: string | null; status?: 'ACTIVE' | 'INACTIVE'; companyIds?: string[]; permissions?: string[] };
 export type Permission = { id: string; code: string; resource: string; action: string; description?: string; status?: 'ACTIVE' | 'INACTIVE' };
 export type Service = { id: string; code: string; name: string; description?: string; status?: 'ACTIVE' | 'INACTIVE' };
@@ -39,6 +39,7 @@ export class PlatformAdminApiClient {
   createRole(input: { name: string; description?: string; scope: Role['scope']; companyId?: string; companyIds?: string[] }) { return this.send<Role>('/roles', input); }
   addRolePermission(roleId: string, permissionId: string) { return this.send<unknown>(`/roles/${path(roleId)}/permissions`, { permissionId }); }
   removeRolePermission(roleId: string, permissionId: string) { return this.send<unknown>(`/roles/${path(roleId)}/permissions/${path(permissionId)}`, undefined, 'DELETE'); }
+  removeRoleAssignment(roleId: string, membershipId: string) { return this.send<unknown>(`/roles/${path(roleId)}/assignments`, { membershipId }, 'DELETE'); }
   assignRole(roleId: string, input: { membershipId: string; companyId: string }) { return this.send<unknown>(`/roles/${path(roleId)}/assignments`, input); }
   permissions() { return this.send<Permission[]>('/permissions'); }
   createPermission(input: { code: string; resource: string; action: string; description?: string }) { return this.send<Permission>('/permissions', input); }

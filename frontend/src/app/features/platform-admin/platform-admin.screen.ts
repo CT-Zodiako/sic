@@ -86,6 +86,7 @@ export class PlatformAdminScreen {
   async createMenuItem(values: Record<string, unknown>) { return this.mutate(values, ['moduleId', 'name'], () => this.api.createMenuItem(values)); }
   async addMenuPermission(itemId: string, permissionId: string) { return this.run(() => this.api.addMenuPermission(itemId, permissionId)); }
   async removeRolePermission(roleId: string, permissionId: string) { return this.run(() => this.api.removeRolePermission(roleId, permissionId)); }
+  async unassignRole(roleId: string, membershipId: string) { return this.run(() => this.api.removeRoleAssignment(roleId, membershipId)); }
   async deactivateCompany(id: string) { return this.run(() => this.api.updateCompany(id, { status: 'INACTIVE' })); }
   async deactivateMembership(id: string) { return this.run(() => this.api.deactivateMembership(id)); }
   async deactivateRole(id: string) { return this.run(() => this.api.updateRole(id, { status: 'INACTIVE' })); }

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIC AAA • Vinculación y Configuración de Servicios AAA por Predio</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&amp;family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "surface-variant": "#dae2fd",
+            "tertiary-fixed-dim": "#4edea3",
+            "primary-fixed": "#cce5ff",
+            "surface-container-low": "#f2f3ff",
+            "on-tertiary-fixed-variant": "#005236",
+            "tertiary": "#006947",
+            "secondary-fixed-dim": "#ffb4ab",
+            "tertiary-fixed": "#6ffbbe",
+            "on-tertiary-container": "#f5fff6",
+            "secondary-container": "#e02928",
+            "on-secondary-container": "#fffbff",
+            "inverse-on-surface": "#eef0ff",
+            "on-surface-variant": "#3f4850",
+            "secondary": "#bb0112",
+            "inverse-primary": "#93ccff",
+            "primary-fixed-dim": "#93ccff",
+            "background": "#faf8ff",
+            "surface": "#faf8ff",
+            "primary": "#006194",
+            "surface-tint": "#006398",
+            "primary-container": "#007bb9",
+            "error": "#ba1a1a",
+            "on-primary-fixed": "#001d31",
+            "on-secondary-fixed": "#410002",
+            "on-primary-container": "#fdfcff",
+            "on-error-container": "#93000a",
+            "surface-container-lowest": "#ffffff",
+            "inverse-surface": "#283044",
+            "on-secondary": "#ffffff",
+            "tertiary-container": "#00855b",
+            "secondary-fixed": "#ffdad6",
+            "outline-variant": "#bfc7d2",
+            "surface-container-high": "#e2e7ff",
+            "surface-bright": "#faf8ff",
+            "surface-container-highest": "#dae2fd",
+            "surface-dim": "#d2d9f4",
+            "on-tertiary-fixed": "#002113",
+            "on-secondary-fixed-variant": "#93000b",
+            "error-container": "#ffdad6",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#004b73",
+            "surface-container": "#eaedff",
+            "outline": "#707881",
+            "on-background": "#131b2e",
+            "on-surface": "#131b2e",
+            "on-error": "#ffffff",
+            "on-primary": "#ffffff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-mobile": "1rem",
+            "gutter-tablet": "1.5rem",
+            "space-2xl": "3rem",
+            "margin-desktop": "3rem",
+            "space-xl": "2rem",
+            "space-2xs": "0.125rem",
+            "gutter-desktop": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-base": "1rem",
+            "margin-tablet": "2rem",
+            "space-md": "0.75rem",
+            "gutter-mobile": "1rem",
+            "space-sm": "0.5rem",
+            "space-xs": "0.25rem"
+          },
+          "fontFamily": {
+            "body-md": ["Public Sans"],
+            "body-sm": ["Public Sans"],
+            "body-lg": ["Public Sans"],
+            "headline-md": ["Public Sans"],
+            "display-lg-mobile": ["Public Sans"],
+            "display-lg": ["Public Sans"],
+            "code-md": ["JetBrains Mono"],
+            "label-md": ["Public Sans"],
+            "label-lg": ["Public Sans"],
+            "headline-lg": ["Public Sans"],
+            "headline-xl": ["Public Sans"],
+            "headline-sm": ["Public Sans"],
+            "headline-xl-mobile": ["Public Sans"],
+            "code-sm": ["JetBrains Mono"],
+            "label-sm": ["Public Sans"]
+          },
+          "fontSize": {
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "code-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "headline-xl": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "headline-xl-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "code-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar (Shared Component JSON Execution) -->
+<header class="flex justify-between items-center w-full px-margin-desktop h-14 border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-50">
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="water_drop">water_drop</span>
+<span class="text-headline-md font-headline-md font-bold text-primary tracking-tight">SIC AAA • Registro Catastral &amp; SUI</span>
+</div>
+<nav aria-label="Global SUI Navigation" class="hidden md:flex items-center gap-space-md ml-space-base">
+<a class="text-on-surface-variant font-label-md hover:text-on-surface transition-colors duration-150 py-1" href="#">Directorio SUI</a>
+<a class="text-primary border-b-2 border-primary font-label-lg font-semibold pb-1" href="#">Normativa CRA 1040</a>
+<a class="text-on-surface-variant font-label-md hover:text-on-surface transition-colors duration-150 py-1" href="#">Monitoreo SSPD</a>
+</nav>
+</div>
+<div class="flex items-center gap-space-md">
+<div class="hidden lg:flex items-center gap-space-xs px-space-sm py-1 bg-surface-container-low rounded border border-outline-variant">
+<span class="material-symbols-outlined text-outline text-lg" data-icon="search">search</span>
+<input class="bg-transparent border-0 text-body-sm focus:ring-0 w-56 text-on-surface placeholder:text-outline-variant p-0" placeholder="Buscar por cédula catastral o matrícula..." type="text"/>
+</div>
+<div class="flex items-center gap-space-xs text-on-surface-variant">
+<button aria-label="Notificaciones" class="p-space-xs rounded hover:bg-surface-container hover:text-primary transition-colors duration-150 relative" title="Notificaciones">
+<span class="material-symbols-outlined text-xl" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-secondary rounded-full"></span>
+</button>
+<button aria-label="Ayuda" class="p-space-xs rounded hover:bg-surface-container hover:text-primary transition-colors duration-150" title="Ayuda técnica CRA">
+<span class="material-symbols-outlined text-xl" data-icon="help">help</span>
+</button>
+<button aria-label="Sincronizar" class="p-space-xs rounded hover:bg-surface-container hover:text-primary transition-colors duration-150" title="Sincronizar con SUI">
+<span class="material-symbols-outlined text-xl" data-icon="sync">sync</span>
+</button>
+</div>
+<div class="h-6 w-px bg-outline-variant mx-space-xs hidden sm:block"></div>
+<div class="flex items-center gap-space-sm">
+<div class="hidden sm:flex flex-col text-right">
+<span class="text-label-sm font-label-sm text-on-surface font-semibold">Empresas Públicas del Valle E.S.P.</span>
+<span class="text-code-sm font-code-sm text-outline">ID SSPD: #890.399.120-1</span>
+</div>
+<div class="w-8 h-8 rounded bg-surface-container-high border border-outline-variant overflow-hidden flex items-center justify-center">
+<img class="w-full h-full object-cover" data-alt="Official portrait of an experienced male public utility regulator wearing a sharp navy blue blazer and corporate identification badge with Colombian institutional insignia. Clean high-key architectural office lighting with crisp focus, reflecting trustworthy civic oversight and regulatory authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBh0zjTsWIf694RvO3bIQv5j12pksOGDDNk_Q32BoYe3Nogasp37FlIi5LmGhAN3kpO7rCOwiqyFAQ6cwZ0vcUv2jEf0ehSIotm3z3tOBNf3jPMt_8IUYr3_JYN_NqDVXhTfscghgyhVM0U2S54XHVMLi3ruYRzmBGeIz1aildAFeEcRg1R5n9P-D1Os3l98Nf8X2YXXRKzr98s1Nqa3qaWzU9IPNifRLZ3kMYUZEy4seW81PcGj6du4Q"/>
+</div>
+<button class="px-space-sm py-1.5 bg-primary hover:bg-primary-container text-on-primary text-label-sm font-label-sm rounded shadow-sm transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-primary flex items-center gap-space-2xs">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+<span>Transmitir Novedad</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex w-full min-h-[calc(100vh-3.5rem)]">
+<!-- SideNavBar (Shared Component JSON Execution) -->
+<aside aria-label="Navegación Institucional AAA" class="w-64 flex flex-col justify-between h-auto py-space-base bg-surface-container-low border-r border-outline-variant shrink-0">
+<div class="flex flex-col gap-space-md">
+<!-- Header SideNav -->
+<div class="px-space-base pb-space-sm border-b border-outline-variant flex items-center gap-space-sm">
+<div class="w-9 h-9 rounded bg-surface-container-lowest border border-outline-variant p-1 flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-on-surface leading-tight">Gestión Integral AAA</h2>
+<p class="text-code-sm font-code-sm text-outline">Vigilado Superservicios (SUI)</p>
+</div>
+</div>
+<!-- Primary CTA from SideNavBar -->
+<div class="px-space-base">
+<button class="w-full py-space-sm px-space-base bg-primary text-on-primary rounded font-label-md hover:bg-primary-container transition-colors flex items-center justify-center gap-space-xs shadow-sm">
+<span class="material-symbols-outlined text-lg" data-icon="add_circle">add_circle</span>
+<span>Nuevo Predio</span>
+</button>
+</div>
+<!-- Navigation items list -->
+<nav aria-label="Módulos del Sistema" class="flex flex-col space-y-0.5">
+<a class="flex items-center gap-space-sm px-space-base py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="domain">domain</span>
+<span>Censo &amp; Catastro Técnico</span>
+</a>
+<!-- Active tab: Vinculación AAA CRA 1040 (Semantic Match) -->
+<a class="flex items-center gap-space-sm px-space-base py-space-sm bg-surface-container-lowest text-primary border-l-4 border-primary font-label-lg font-semibold shadow-sm" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="alt_route" data-weight="fill" style="font-variation-settings: 'FILL' 1;">alt_route</span>
+<span>Vinculación AAA CRA 1040</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-base py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="map">map</span>
+<span>Cartografía &amp; GIS</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-base py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="receipt_long">receipt_long</span>
+<span>Liquidación &amp; Tarifas</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-base py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="cloud_upload">cloud_upload</span>
+<span>Reportes Consolidados SUI</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-base py-space-sm text-on-surface-variant hover:bg-surface-container hover:text-on-surface font-label-md transition-colors duration-150" href="#">
+<span class="material-symbols-outlined text-lg" data-icon="settings">settings</span>
+<span>Parámetros del Sistema</span>
+</a>
+</nav>
+</div>
+<!-- Footer SideNav items -->
+<div class="px-space-base border-t border-outline-variant pt-space-sm flex flex-col gap-1">
+<a class="flex items-center gap-space-sm px-space-sm py-1.5 text-outline hover:text-on-surface text-label-sm font-label-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-base" data-icon="menu_book">menu_book</span>
+<span>Manual Operativo</span>
+</a>
+<a class="flex items-center gap-space-sm px-space-sm py-1.5 text-outline hover:text-on-surface text-label-sm font-label-sm transition-colors" href="#">
+<span class="material-symbols-outlined text-base" data-icon="headset_mic">headset_mic</span>
+<span>Soporte Técnico</span>
+</a>
+<div class="mt-space-xs p-space-xs bg-surface-container rounded text-code-sm font-code-sm text-outline text-center">
+          v4.18.2-CRA1040-CO
+        </div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto px-margin-desktop py-space-lg bg-background">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-lg">
+<!-- Breadcrumbs & Step Wizard Indicator -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-xs border-b border-outline-variant">
+<nav aria-label="Miga de pan" class="flex items-center gap-space-xs text-label-md font-label-md text-outline">
+<span>Configuración</span>
+<span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span>
+<span>Catastro</span>
+<span class="material-symbols-outlined text-xs" data-icon="chevron_right">chevron_right</span>
+<span class="text-primary font-semibold">Vinculación de Servicios</span>
+</nav>
+<div class="flex items-center gap-space-sm bg-surface-container-lowest px-space-sm py-1 rounded border border-outline-variant">
+<span class="text-label-sm font-label-sm text-outline">Paso técnico:</span>
+<span class="text-code-sm font-code-sm font-semibold text-primary">2 de 4</span>
+<div class="w-24 h-1.5 bg-surface-container rounded-full overflow-hidden">
+<div class="w-1/2 h-full bg-primary rounded-full"></div>
+</div>
+<span class="text-label-sm font-label-sm text-outline font-medium">50% completado</span>
+</div>
+</div>
+<!-- Compact Property Header Summary Panel -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-base shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-base">
+<div class="flex items-start gap-space-base">
+<div class="w-12 h-12 rounded bg-surface-container-low border border-outline-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="apartment">apartment</span>
+</div>
+<div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<h1 class="text-headline-lg font-headline-lg text-on-surface">Vinculación y Configuración de Servicios AAA</h1>
+<span class="px-2 py-0.5 rounded text-label-sm font-label-sm bg-surface-container-high text-primary font-semibold border border-outline-variant">Predio Urbano</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-0.5">Asocie los componentes técnicos de entrega y facturación según el marco regulatorio CRA 1040 / Ley 142 de 1994.</p>
+</div>
+</div>
+<!-- Metadata Pills / Key-Value Strip -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-space-sm border-t lg:border-t-0 lg:border-l border-outline-variant pt-space-sm lg:pt-0 lg:pl-space-lg">
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Matrícula Catastral</span>
+<span class="text-code-md font-code-md font-semibold text-on-surface">370-184920</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Dirección &amp; Comuna</span>
+<span class="text-body-md font-body-md font-medium text-on-surface">Cl. 14 # 8-32, Comuna 3</span>
+</div>
+<div class="flex flex-col col-span-2 sm:col-span-1">
+<span class="text-label-sm font-label-sm text-outline uppercase tracking-wider">Estrato Socioeconómico</span>
+<div class="flex items-center gap-space-xs">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="text-label-md font-label-md font-semibold text-on-surface">Estrato 3 (Medio-Bajo)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Form Context Container -->
+<form class="flex flex-col gap-space-lg" id="aaa-services-form" onsubmit="event.preventDefault();">
+<!-- Bento Grid: The 3 Detailed Service Configuration Cards -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-base">
+<!-- CARD 1: SERVICIO DE ACUEDUCTO (Azul #0284c7) -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant border-l-4 border-l-[#0284c7] shadow-sm flex flex-col justify-between transition-all duration-150">
+<div>
+<!-- Header -->
+<div class="p-space-base border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-[#F0F9FF] border border-[#BAE6FD] flex items-center justify-center text-[#0284c7]">
+<span class="material-symbols-outlined text-xl" data-icon="water">water</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold">1. Acueducto</h2>
+<span class="text-code-sm font-code-sm text-outline">Agua Potable Domiciliaria</span>
+</div>
+</div>
+<!-- Switch Toggle ON/OFF -->
+<label class="relative inline-flex items-center cursor-pointer select-none">
+<input checked="" class="sr-only peer" id="toggle-acueducto" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0284c7]"></div>
+<span class="ml-2 text-label-sm font-label-sm font-semibold text-[#0284c7]">ACTIVO</span>
+</label>
+</div>
+<!-- Card Body Form Elements -->
+<div class="p-space-base flex flex-col gap-space-md">
+<!-- Estado de Conexión -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="acueducto-estado">Estado de Conexión <span class="text-secondary">*</span></label>
+<select class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:border-[#0284c7] focus:ring-1 focus:ring-[#0284c7]" id="acueducto-estado">
+<option selected="" value="conectado">Conectado (Servicio Regular)</option>
+<option value="tramite">En Trámite de Instalación</option>
+<option value="sin_factibilidad">Sin Factibilidad Técnica</option>
+<option value="cortado">Cortado por Mora / Suspendido</option>
+</select>
+</div>
+<!-- Número de Acometida / Póliza -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="acueducto-poliza">Número de Acometida / Póliza de Acueducto</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 text-code-sm font-code-sm text-outline">ACQ-</span>
+<input class="w-full h-10 pl-14 pr-3 bg-surface-container-lowest border border-outline-variant rounded text-code-md font-code-md font-semibold text-on-surface focus:border-[#0284c7] focus:ring-1 focus:ring-[#0284c7]" id="acueducto-poliza" type="text" value="48201-B"/>
+</div>
+</div>
+<!-- Diámetro de la Acometida -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="acueducto-diametro">Diámetro de la Acometida</label>
+<select class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:border-[#0284c7] focus:ring-1 focus:ring-[#0284c7]" id="acueducto-diametro">
+<option selected="" value="1/2">1/2 pulgada (Residencial estándar)</option>
+<option value="3/4">3/4 pulgada (Comercial / Multifamiliar)</option>
+<option value="1">1 pulgada (Gran caudal)</option>
+<option value="2">2 pulgadas (Industrial / Red comunal)</option>
+</select>
+</div>
+<!-- Tipo de Medición -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="acueducto-tipo-medicion">Tipo de Medición</label>
+<select class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:border-[#0284c7] focus:ring-1 focus:ring-[#0284c7]" id="acueducto-tipo-medicion">
+<option selected="" value="individual">Medidor individual</option>
+<option value="macromedidor">Macromedidor comunitario</option>
+<option value="pila">Pila pública</option>
+<option value="sin_medidor">Sin medidor (Consumo promedio aforado)</option>
+</select>
+</div>
+<!-- Hardware: Serie, Marca, Lectura Inicial -->
+<div class="p-space-sm bg-surface-container-low rounded-lg border border-outline-variant flex flex-col gap-space-sm">
+<span class="text-label-sm font-label-sm font-semibold text-[#0284c7] flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="speed">speed</span>
+                      Registro de Medidor Físico
+                    </span>
+<div class="grid grid-cols-2 gap-space-xs">
+<div>
+<label class="block text-label-sm font-label-sm text-outline mb-0.5" for="acueducto-marca">Marca</label>
+<input class="w-full h-9 px-2 bg-surface-container-lowest border border-outline-variant rounded text-body-sm text-on-surface focus:border-[#0284c7]" id="acueducto-marca" type="text" value="Elster Kent"/>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-outline mb-0.5" for="acueducto-serie">N° Serie</label>
+<input class="w-full h-9 px-2 bg-surface-container-lowest border border-outline-variant rounded text-code-sm font-code-sm text-on-surface focus:border-[#0284c7]" id="acueducto-serie" type="text" value="EL-99412-23"/>
+</div>
+</div>
+<div>
+<label class="block text-label-sm font-label-sm text-outline mb-0.5" for="acueducto-lectura">Lectura Inicial (m³)</label>
+<div class="relative flex items-center">
+<input class="w-full h-9 px-2 bg-surface-container-lowest border border-outline-variant rounded text-code-sm font-code-sm text-on-surface focus:border-[#0284c7]" id="acueducto-lectura" step="0.01" type="number" value="0.00"/>
+<span class="absolute right-3 text-code-sm font-code-sm text-outline">m³</span>
+</div>
+</div>
+</div>
+<!-- Tipo de Tarifa / Subsidio aplicable -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="acueducto-tarifa">Régimen Tarifario / Subsidio Ley 142</label>
+<select class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:border-[#0284c7] focus:ring-1 focus:ring-[#0284c7]" id="acueducto-tarifa">
+<option selected="" value="estrato3_subsidio">Estrato 3: Subsidio Ley 142 (hasta 15% CMB)</option>
+<option value="estrato1_subsidio">Estrato 1: Subsidio Pleno (hasta 70%)</option>
+<option value="estrato2_subsidio">Estrato 2: Subsidio Básico (hasta 40%)</option>
+<option value="sin_subsidio">Estrato 4: Tarifa Neutra (Sin subsidio ni aporte)</option>
+<option value="contribuyente">Estrato 5-6 / Comercial: Contribución 20% Solidaria</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Card Status Footer -->
+<div class="px-space-base py-space-sm bg-[#F0F9FF] border-t border-[#BAE6FD] rounded-b-xl flex items-center justify-between text-[#0369A1]">
+<span class="text-label-sm font-label-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#0284c7]"></span>
+                  Validado red hidráulica Sector 3A
+                </span>
+<span class="text-code-sm font-code-sm font-bold">100% FACTIBLE</span>
+</div>
+</article>
+<!-- CARD 2: SERVICIO DE ALCANTARILLADO (Rojo #dc2626) -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant border-l-4 border-l-[#dc2626] shadow-sm flex flex-col justify-between transition-all duration-150">
+<div>
+<!-- Header -->
+<div class="p-space-base border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-[#FEF2F2] border border-[#FECACA] flex items-center justify-center text-[#dc2626]">
+<span class="material-symbols-outlined text-xl" data-icon="waves">waves</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold">2. Alcantarillado</h2>
+<span class="text-code-sm font-code-sm text-outline">Aguas Residuales &amp; Pluviales</span>
+</div>
+</div>
+<!-- Switch Toggle ON/OFF -->
+<label class="relative inline-flex items-center cursor-pointer select-none">
+<input checked="" class="sr-only peer" id="toggle-alcantarillado" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#dc2626]"></div>
+<span class="ml-2 text-label-sm font-label-sm font-semibold text-[#dc2626]">ACTIVO</span>
+</label>
+</div>
+<!-- Card Body Form Elements -->
+<div class="p-space-base flex flex-col gap-space-md">
+<!-- Estado de Vertimiento -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="alcantarillado-estado">Estado de Vertimiento <span class="text-secondary">*</span></label>
+<select class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:border-[#dc2626] focus:ring-1 focus:ring-[#dc2626]" id="alcantarillado-estado">
+<option selected="" value="matriz">Conectado a red matriz principal</option>
+<option value="septico">Pozo séptico individual inspeccionado</option>
+<option value="sin_servicio">Sin servicio / En proceso de saneamiento</option>
+</select>
+</div>
+<!-- Tipo de Vertimiento -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="alcantarillado-tipo">Tipo de Vertimiento (Criterio CRA)</label>
+<select class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:border-[#dc2626] focus:ring-1 focus:ring-[#dc2626]" id="alcantarillado-tipo">
+<option selected="" value="domestico">Doméstico ordinario (Residencial)</option>
+<option value="no_domestico">No doméstico / Comercial liviano</option>
+<option value="industrial">Industrial con pretratamiento</option>
+<option value="especial">Especial sujeto a caracterización ambiental</option>
+</select>
+</div>
+<!-- Conexión Pluvial Independiente -->
+<div class="p-space-sm bg-surface-container-low rounded-lg border border-outline-variant">
+<label class="block text-label-md font-label-md text-on-surface mb-2">Conexión Pluvial Independiente (Separativa)</label>
+<div class="grid grid-cols-2 gap-space-sm">
+<label class="flex items-center gap-space-xs p-2 rounded bg-surface-container-lowest border border-outline-variant cursor-pointer hover:border-[#dc2626]">
+<input checked="" class="text-[#dc2626] focus:ring-[#dc2626]" name="pluvial_separativa" type="radio" value="si"/>
+<span class="text-label-sm font-label-sm text-on-surface font-medium">Sí (Red Separada)</span>
+</label>
+<label class="flex items-center gap-space-xs p-2 rounded bg-surface-container-lowest border border-outline-variant cursor-pointer hover:border-[#dc2626]">
+<input class="text-[#dc2626] focus:ring-[#dc2626]" name="pluvial_separativa" type="radio" value="no"/>
+<span class="text-label-sm font-label-sm text-on-surface font-medium">No (Red Combinada)</span>
+</label>
+</div>
+<span class="text-code-sm font-code-sm text-outline mt-1.5 block">Cumple norma técnica de alivio de escorrentía municipal.</span>
+</div>
+<!-- Punto de Descarga / Matrícula de vertimientos -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="alcantarillado-punto">Número de Punto de Descarga / Matrícula de Vertimientos</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 text-code-sm font-code-sm text-outline">VERT-</span>
+<input class="w-full h-10 pl-16 pr-3 bg-surface-container-lowest border border-outline-variant rounded text-code-md font-code-md font-semibold text-on-surface focus:border-[#dc2626] focus:ring-1 focus:ring-[#dc2626]" id="alcantarillado-punto" type="text" value="CL14-0832-ALC"/>
+</div>
+</div>
+<!-- Inspección & Alivio Técnico -->
+<div class="p-space-sm border border-outline-variant rounded bg-surface-container-lowest">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface font-medium">Caja de Inspección Domiciliaria:</span>
+<span class="text-label-sm font-label-sm font-semibold text-[#dc2626] bg-[#FEF2F2] px-2 py-0.5 rounded border border-[#FECACA]">Homologada</span>
+</div>
+<p class="text-code-sm font-code-sm text-outline mt-1">Cota rasante: 984.12 m.s.n.m | Colector: Colector Sur Sec. 4</p>
+</div>
+</div>
+</div>
+<!-- Card Status Footer -->
+<div class="px-space-base py-space-sm bg-[#FEF2F2] border-t border-[#FECACA] rounded-b-xl flex items-center justify-between text-[#B91C1C]">
+<span class="text-label-sm font-label-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#dc2626]"></span>
+                  Vertimiento ligado a consumo de Acueducto
+                </span>
+<span class="text-code-sm font-code-sm font-bold">FACTOR 1.0</span>
+</div>
+</article>
+<!-- CARD 3: SERVICIO DE ASEO Y LIMPIEZA (Verde #10b981 - CRA 1040) -->
+<article class="bg-surface-container-lowest rounded-xl border border-outline-variant border-l-4 border-l-[#10b981] shadow-sm flex flex-col justify-between transition-all duration-150">
+<div>
+<!-- Header -->
+<div class="p-space-base border-b border-outline-variant flex items-center justify-between bg-surface-container-lowest rounded-t-xl">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded bg-[#ECFDF5] border border-[#A7F3D0] flex items-center justify-center text-[#10b981]">
+<span class="material-symbols-outlined text-xl" data-icon="delete">delete</span>
+</div>
+<div>
+<h2 class="text-headline-sm font-headline-sm text-on-surface font-semibold">3. Aseo &amp; Limpieza</h2>
+<span class="text-code-sm font-code-sm text-outline">Regulación CRA 1040 PGIRS</span>
+</div>
+</div>
+<!-- Switch Toggle ON/OFF -->
+<label class="relative inline-flex items-center cursor-pointer select-none">
+<input checked="" class="sr-only peer" id="toggle-aseo" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#10b981]"></div>
+<span class="ml-2 text-label-sm font-label-sm font-semibold text-[#10b981]">ACTIVO</span>
+</label>
+</div>
+<!-- Card Body Form Elements -->
+<div class="p-space-base flex flex-col gap-space-md">
+<!-- Modalidad de Servicio -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="aseo-modalidad">Modalidad de Servicio Aseo <span class="text-secondary">*</span></label>
+<select class="w-full h-10 px-3 bg-surface-container-lowest border border-outline-variant rounded text-body-sm font-body-sm text-on-surface focus:border-[#10b981] focus:ring-1 focus:ring-[#10b981]" id="aseo-modalidad">
+<option selected="" value="ordinario">Ordinario residencial (Bolsa al pie de acera)</option>
+<option value="aforo_multi">Aforo multiusuario (Contenedor conjunto)</option>
+<option value="gran_generador">Gran generador comercial / industrial</option>
+<option value="aforo_especial">Aforo individual extraordinario</option>
+</select>
+</div>
+<!-- Código de Microrruta y Frecuencia Semanal -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="aseo-microrruta">Código de Microrruta &amp; Frecuencia</label>
+<div class="grid grid-cols-2 gap-space-xs">
+<div class="relative flex items-center">
+<span class="absolute left-2 text-code-sm font-code-sm text-outline">MR-</span>
+<input class="w-full h-10 pl-9 pr-2 bg-surface-container-lowest border border-outline-variant rounded text-code-sm font-code-sm font-semibold text-on-surface focus:border-[#10b981]" id="aseo-microrruta" type="text" value="302-N"/>
+</div>
+<select class="w-full h-10 px-2 bg-surface-container-lowest border border-outline-variant rounded text-body-sm text-on-surface focus:border-[#10b981]" id="aseo-frecuencia">
+<option selected="" value="l_m_v_noche">Lun-Mié-Vie Noche</option>
+<option value="m_j_s_dia">Mar-Jue-Sáb Día</option>
+<option value="diaria_nocturna">Diaria Nocturna</option>
+<option value="especial_sabados">Frecuencia Semanal Única</option>
+</select>
+</div>
+</div>
+<!-- Código de Ruta de Barrido y Limpieza (CBL CRA 1040) -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="aseo-cbl">Código de Barrido &amp; Limpieza (CBL CRA 1040)</label>
+<div class="relative flex items-center">
+<span class="absolute left-3 text-code-sm font-code-sm text-outline">CBL-</span>
+<input class="w-full h-10 pl-14 pr-3 bg-surface-container-lowest border border-outline-variant rounded text-code-md font-code-md font-semibold text-on-surface focus:border-[#10b981] focus:ring-1 focus:ring-[#10b981]" id="aseo-cbl" type="text" value="COM3-K14-8"/>
+</div>
+<span class="text-code-sm font-code-sm text-outline mt-1 block">Metros lineales de frente asignados: 9.40 m</span>
+</div>
+<!-- Productor de Residuos Especiales o Peligrosos -->
+<div class="p-space-sm bg-surface-container-low rounded-lg border border-outline-variant">
+<label class="block text-label-md font-label-md text-on-surface mb-2">Productor Residuos Especiales o Peligrosos (RESPEL)</label>
+<div class="grid grid-cols-2 gap-space-sm">
+<label class="flex items-center gap-space-xs p-2 rounded bg-surface-container-lowest border border-outline-variant cursor-pointer hover:border-[#10b981]">
+<input checked="" class="text-[#10b981] focus:ring-[#10b981]" name="respel" type="radio" value="no"/>
+<span class="text-label-sm font-label-sm text-on-surface font-medium">No (Inertes/Ordinarios)</span>
+</label>
+<label class="flex items-center gap-space-xs p-2 rounded bg-surface-container-lowest border border-outline-variant cursor-pointer hover:border-[#10b981]">
+<input class="text-[#10b981] focus:ring-[#10b981]" name="respel" type="radio" value="si"/>
+<span class="text-label-sm font-label-sm text-on-surface font-medium">Sí (Ruta Hospitalaria/Ind.)</span>
+</label>
+</div>
+</div>
+<!-- Aprovechamiento e Incentivo D-Tree -->
+<div class="p-space-sm border border-outline-variant rounded bg-surface-container-lowest">
+<div class="flex items-center justify-between text-body-sm">
+<span class="text-on-surface font-medium">Ruta Selectiva de Reciclaje:</span>
+<span class="text-label-sm font-label-sm font-semibold text-[#047857] bg-[#ECFDF5] px-2 py-0.5 rounded border border-[#A7F3D0]">Asociación Asorreciclar</span>
+</div>
+<p class="text-code-sm font-code-sm text-outline mt-1">Día de recolección diferenciada: Martes 08:00 AM</p>
+</div>
+</div>
+</div>
+<!-- Card Status Footer -->
+<div class="px-space-base py-space-sm bg-[#ECFDF5] border-t border-[#A7F3D0] rounded-b-xl flex items-center justify-between text-[#047857]">
+<span class="text-label-sm font-label-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-[#10b981]"></span>
+                  Ruta regular validada por operador PGIRS
+                </span>
+<span class="text-code-sm font-code-sm font-bold">CRA 1040 OK</span>
+</div>
+</article>
+</div>
+<!-- Regulatory Compliance & Summary Ledger Banner -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant p-space-base flex flex-col md:flex-row items-start md:items-center justify-between gap-space-base shadow-sm">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-2xl mt-0.5" data-icon="fact_check">fact_check</span>
+<div>
+<h3 class="text-label-lg font-label-lg text-on-surface font-semibold">Validación Previa de Facturación Conjunta (Decreto 1077 / SSPD)</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Al guardar la configuración, los tres servicios seleccionados consolidarán el cobro en un ciclo único de facturación con vencimiento el día 25 de cada mes.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end md:self-auto shrink-0">
+<div class="flex items-center gap-1 text-code-sm font-code-sm text-outline bg-surface-container-low px-space-sm py-1.5 rounded border border-outline-variant">
+<span class="material-symbols-outlined text-sm text-tertiary" data-icon="verified_user">verified_user</span>
+<span>Hash Auditoría: 7F9A-CRA-2024</span>
+</div>
+</div>
+</section>
+<!-- Bottom Action Bar / Workflow Buttons -->
+<footer class="flex flex-col sm:flex-row items-center justify-between gap-space-base pt-space-sm pb-space-xl">
+<button class="w-full sm:w-auto px-space-lg py-2.5 bg-surface-container-lowest border border-outline-variant text-on-surface font-label-md rounded shadow-sm hover:bg-surface-container transition-colors flex items-center justify-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="arrow_back">arrow_back</span>
+<span>Regresar al Censo Técnico (Paso 1)</span>
+</button>
+<div class="flex flex-col sm:flex-row items-center gap-space-md w-full sm:w-auto">
+<!-- Action Button 1: Guardar Configuración de Servicios -->
+<button class="w-full sm:w-auto px-space-lg py-2.5 bg-surface-container-lowest border border-outline text-on-surface font-label-md font-semibold rounded hover:bg-surface-container hover:border-on-surface transition-all duration-150 flex items-center justify-center gap-space-xs shadow-sm" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="save">save</span>
+<span>Guardar Configuración de Servicios</span>
+</button>
+<!-- Action Button 2: Vincular Servicios Seleccionados -->
+<button class="w-full sm:w-auto px-space-xl py-2.5 bg-primary hover:bg-primary-container text-on-primary font-label-lg font-semibold rounded shadow-sm hover:shadow transition-all duration-150 flex items-center justify-center gap-space-xs" type="submit">
+<span class="material-symbols-outlined text-lg" data-icon="link">link</span>
+<span>Vincular Servicios Seleccionados</span>
+</button>
+</div>
+</footer>
+</form>
+</div>
+</main>
+</div>
+<script>
+    // Lightweight interactivity for service toggles
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggles = [
+        { id: 'toggle-acueducto', color: '#0284c7' },
+        { id: 'toggle-alcantarillado', color: '#dc2626' },
+        { id: 'toggle-aseo', color: '#10b981' }
+      ];
+
+      toggles.forEach(item => {
+        const checkbox = document.getElementById(item.id);
+        if (checkbox) {
+          checkbox.addEventListener('change', (e) => {
+            const article = e.target.closest('article');
+            const statusLabel = e.target.parentElement.querySelector('span');
+            if (e.target.checked) {
+              article.classList.remove('opacity-60');
+              if (statusLabel) {
+                statusLabel.textContent = 'ACTIVO';
+                statusLabel.style.color = item.color;
+              }
+            } else {
+              article.classList.add('opacity-60');
+              if (statusLabel) {
+                statusLabel.textContent = 'INACTIVO';
+                statusLabel.style.color = '#707881';
+              }
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body></html>

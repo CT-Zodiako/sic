@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SIC AAA - Gestión Comercial, Catastro y Facturación</title>
+<!-- Material Symbols & Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#faf8ff",
+            "on-tertiary-container": "#f5fff6",
+            "on-secondary": "#ffffff",
+            "secondary-fixed": "#ffdad6",
+            "on-error": "#ffffff",
+            "on-error-container": "#93000a",
+            "on-surface-variant": "#3f4850",
+            "on-primary": "#ffffff",
+            "on-tertiary-fixed-variant": "#005236",
+            "secondary-fixed-dim": "#ffb4ab",
+            "primary-fixed-dim": "#93ccff",
+            "surface-container-lowest": "#ffffff",
+            "surface-variant": "#dae2fd",
+            "on-primary-container": "#fdfcff",
+            "outline": "#707881",
+            "on-secondary-container": "#fffbff",
+            "error-container": "#ffdad6",
+            "on-tertiary-fixed": "#002113",
+            "surface-container-low": "#f2f3ff",
+            "surface-container-highest": "#dae2fd",
+            "secondary": "#bb0112",
+            "surface-container-high": "#e2e7ff",
+            "on-secondary-fixed-variant": "#93000b",
+            "error": "#ba1a1a",
+            "tertiary-fixed-dim": "#4edea3",
+            "tertiary": "#006947",
+            "surface-tint": "#006398",
+            "surface-container": "#eaedff",
+            "outline-variant": "#bfc7d2",
+            "surface-bright": "#faf8ff",
+            "on-background": "#131b2e",
+            "on-secondary-fixed": "#410002",
+            "tertiary-container": "#00855b",
+            "secondary-container": "#e02928",
+            "primary-fixed": "#cce5ff",
+            "surface": "#faf8ff",
+            "tertiary-fixed": "#6ffbbe",
+            "primary-container": "#007bb9",
+            "inverse-primary": "#93ccff",
+            "primary": "#006194",
+            "surface-dim": "#d2d9f4",
+            "on-tertiary": "#ffffff",
+            "inverse-surface": "#283044",
+            "on-primary-fixed": "#001d31",
+            "on-primary-fixed-variant": "#004b73",
+            "on-surface": "#131b2e",
+            "inverse-on-surface": "#eef0ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+          "spacing": {
+            "margin-desktop": "3rem",
+            "gutter-tablet": "1.5rem",
+            "space-lg": "1.5rem",
+            "space-xs": "0.25rem",
+            "space-2xl": "3rem",
+            "gutter-mobile": "1rem",
+            "margin-mobile": "1rem",
+            "space-base": "1rem",
+            "space-md": "0.75rem",
+            "space-sm": "0.5rem",
+            "space-xl": "2rem",
+            "gutter-desktop": "1.5rem",
+            "space-2xs": "0.125rem",
+            "margin-tablet": "2rem"
+          },
+          "fontFamily": {
+            "label-md": ["Public Sans"],
+            "display-lg": ["Public Sans"],
+            "headline-xl-mobile": ["Public Sans"],
+            "headline-sm": ["Public Sans"],
+            "body-md": ["Public Sans"],
+            "body-lg": ["Public Sans"],
+            "label-lg": ["Public Sans"],
+            "code-sm": ["JetBrains Mono"],
+            "label-sm": ["Public Sans"],
+            "display-lg-mobile": ["Public Sans"],
+            "headline-xl": ["Public Sans"],
+            "headline-md": ["Public Sans"],
+            "body-sm": ["Public Sans"],
+            "headline-lg": ["Public Sans"],
+            "code-md": ["JetBrains Mono"]
+          },
+          "fontSize": {
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-lg": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.025em", "fontWeight": "700" }],
+            "headline-xl-mobile": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+            "headline-sm": ["16px", { "lineHeight": "22px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+            "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "code-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.04em", "fontWeight": "600" }],
+            "display-lg-mobile": ["28px", { "lineHeight": "34px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-xl": ["28px", { "lineHeight": "36px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "headline-md": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "400" }],
+            "headline-lg": ["22px", { "lineHeight": "28px", "letterSpacing": "-0.015em", "fontWeight": "600" }],
+            "code-md": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "500" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+<body class="h-full bg-background text-on-surface font-body-md text-body-md antialiased flex overflow-hidden">
+<!-- ========================================================================= -->
+<!-- SHARED COMPONENT: SideNavBar                                              -->
+<!-- ========================================================================= -->
+<aside class="flex flex-col justify-between h-full w-64 py-5 px-3 z-40 bg-inverse-surface text-inverse-on-surface border-r border-outline-variant shrink-0 select-none">
+<div class="flex flex-col gap-5">
+<!-- SideNav Header with Institutional Brand -->
+<div class="flex items-center gap-3 px-2">
+<img alt="Isotipo SIC AAA gota, engranaje y hoja ecológica" class="w-10 h-10 object-contain rounded bg-surface-container-lowest p-1" src="https://lh3.googleusercontent.com/aida/AEtjO1XOOiQLi7ja4H4NQ1muDvtKZ836JzOfg84QCi55jPcrmQDFH1cF_6Tqm9giCsgcTMZ0sW55z_U6CSeUtK1Y1E8WseCYIz_jXapYaeP-Q9rxc6ubfNZwmKIoEkZKlzj7Li3lspxFzANC-eYl23ETBF42glcknhw5zc3h6m8lfOOKOXhO_VIPvLEEl89iAX4q-iW-OawscrLFfP-Owoivh19TeqnoqPyCajcQO6qvl4jEheNweHThIZC7Yg5I"/>
+<div class="flex flex-col">
+<span class="text-headline-sm font-headline-sm font-bold text-inverse-on-surface tracking-tight leading-tight">SIC AAA Colombia</span>
+<span class="text-body-sm font-body-sm text-outline-variant text-[11px] leading-tight">Vigilancia Superservicios y CRA</span>
+</div>
+</div>
+<!-- Quick Action CTA -->
+<button class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded bg-secondary text-on-secondary font-label-md text-label-md hover:bg-secondary-container transition-all active:scale-[0.99] shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">add_alert</span>
+<span>Nueva Incidencia Operativa</span>
+</button>
+<!-- Primary Navigation Links (Active item is Facturación y Estratificación) -->
+<nav class="flex flex-col gap-1 mt-1">
+<!-- 1. Panel General -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-inverse-on-surface hover:bg-surface-container-highest/20 transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px] text-inverse-primary">dashboard</span>
+<span>Panel General</span>
+</a>
+<!-- 2. Acueducto -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-inverse-on-surface hover:bg-surface-container-highest/20 transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px] text-[#38BDF8]">water_drop</span>
+<span>Acueducto (Redes y Calidad)</span>
+</a>
+<!-- 3. Alcantarillado -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-inverse-on-surface hover:bg-surface-container-highest/20 transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px] text-[#F87171]">plumbing</span>
+<span>Alcantarillado (Vertimientos)</span>
+</a>
+<!-- 4. Aseo -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-inverse-on-surface hover:bg-surface-container-highest/20 transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px] text-[#34D399]">recycling</span>
+<span>Aseo y Rutas de Recolección</span>
+</a>
+<!-- 5. Facturación y Estratificación (ACTIVE MANDATE) -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded bg-primary text-on-primary font-semibold border-l-4 border-primary-fixed shadow-sm" href="#">
+<span class="material-symbols-outlined text-[20px] text-primary-fixed" style="font-variation-settings: 'FILL' 1;">receipt_long</span>
+<span class="font-label-md text-label-md">Facturación y Estratificación</span>
+</a>
+<!-- 6. Normativa CRA -->
+<a class="flex items-center gap-3 px-3 py-2.5 rounded text-inverse-on-surface hover:bg-surface-container-highest/20 transition-colors font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined text-[20px] text-inverse-primary">gavel</span>
+<span>Normativa y Cumplimiento CRA</span>
+</a>
+</nav>
+</div>
+<!-- Footer System Anchors -->
+<div class="flex flex-col gap-1 border-t border-outline-variant/30 pt-3">
+<a class="flex items-center gap-3 px-3 py-2 rounded text-inverse-on-surface/80 hover:text-inverse-on-surface hover:bg-surface-container-highest/20 transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span>Configuración del Sistema</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-inverse-on-surface/80 hover:text-inverse-on-surface hover:bg-surface-container-highest/20 transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">shield</span>
+<span>Auditoría y Bitácora SUI</span>
+</a>
+<!-- Regulatory Status Indicator -->
+<div class="mt-2 p-2.5 bg-inverse-surface/80 rounded border border-outline-variant/40 flex items-center justify-between text-[11px]">
+<div class="flex items-center gap-1.5 text-tertiary-fixed-dim">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span>
+<span class="font-code-sm text-code-sm font-semibold">SUI v4.8 ONLINE</span>
+</div>
+<span class="text-outline-variant font-code-sm text-code-sm">CRA 943</span>
+</div>
+</div>
+</aside>
+<!-- ========================================================================= -->
+<!-- MAIN APP CONTAINER                                                        -->
+<!-- ========================================================================= -->
+<div class="flex-1 flex flex-col h-full overflow-hidden bg-background">
+<!-- ======================================================================= -->
+<!-- SHARED COMPONENT: TopNavBar                                             -->
+<!-- ======================================================================= -->
+<header class="flex justify-between items-center w-full px-6 py-3 bg-surface-container-lowest border-b border-outline-variant shrink-0 z-30">
+<!-- Search & Contextual Hierarchy -->
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-3">
+<span class="text-headline-md font-headline-md font-bold text-on-surface tracking-tight flex items-center gap-2">
+            SIC AAA - Sistema Integral Comercial y Operativo
+          </span>
+<span class="px-2 py-0.5 rounded bg-primary-fixed/40 text-primary font-code-sm text-code-sm border border-primary-fixed">Régimen Tarifario 2024</span>
+</div>
+<!-- Global Search Input (on_left) -->
+<div class="relative w-80">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[18px]">search</span>
+<input class="w-full pl-9 pr-3 py-1.5 bg-surface-container-low border border-outline-variant rounded text-body-sm font-body-sm text-on-surface placeholder:text-outline focus:outline-none focus:ring-2 focus:ring-primary focus:bg-surface-container-lowest transition-all" placeholder="Buscar por Póliza, Suscriptor, Cédula o Dirección..." type="text"/>
+<span class="absolute right-2.5 top-2 px-1.5 py-0.5 bg-surface-container-high rounded text-[10px] text-on-surface-variant font-code-sm">⌘K</span>
+</div>
+</div>
+<!-- Navigation Links & Trailing Regulatory Actions -->
+<div class="flex items-center gap-5">
+<nav class="hidden xl:flex items-center gap-4 text-label-md font-label-md">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Tablero CRA</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Reportes SUI</a>
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Tarifas y Subsidios</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-150" href="#">Despacho Técnico</a>
+</nav>
+<div class="h-5 w-px bg-outline-variant/60 hidden xl:block"></div>
+<!-- Trailing Actions & Institutional Selectors -->
+<div class="flex items-center gap-2">
+<!-- Secondary Action: Selector Empresa AAA -->
+<div class="flex items-center bg-surface-container-low border border-outline-variant rounded px-2.5 py-1">
+<span class="material-symbols-outlined text-outline text-[18px] mr-1.5">corporate_fare</span>
+<select class="bg-transparent text-label-sm font-label-sm text-on-surface border-0 p-0 focus:ring-0 cursor-pointer pr-4">
+<option>Empresas Públicas del Valle E.S.P.</option>
+<option>Aguas y Aseo Metropolitano S.A.</option>
+<option>Consorcio Ambiental Central</option>
+</select>
+</div>
+<!-- Primary Action: Descargar Cargue SUI -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-primary text-on-primary font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">download_for_offline</span>
+<span>Descargar Cargue SUI</span>
+</button>
+<!-- Trailing Icon Actions -->
+<div class="flex items-center ml-1 space-x-1 border-l border-outline-variant/60 pl-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded relative" title="Notificaciones" type="button">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-secondary"></span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded" title="Ayuda y Marco Regulatorio" type="button">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-container-low rounded" title="Preferencias" type="button">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</div>
+<!-- User Profile Avatar -->
+<div class="flex items-center gap-2 pl-2 border-l border-outline-variant/60">
+<div class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-bold text-label-md ring-2 ring-primary-fixed">
+              CR
+            </div>
+<div class="hidden 2xl:flex flex-col text-left">
+<span class="font-label-md text-label-md leading-none text-on-surface">Ing. Carlos Rivas</span>
+<span class="text-[10px] text-outline font-body-sm leading-none mt-1">Auditor Certificado CRA</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ======================================================================= -->
+<!-- CONTENT CANVAS (SCROLLABLE)                                             -->
+<!-- ======================================================================= -->
+<main class="flex-1 overflow-y-auto px-6 py-5 flex flex-col gap-5">
+<!-- Breadcrumb & Municipal Period Indicator -->
+<div class="flex flex-wrap items-center justify-between gap-3 pb-1 border-b border-outline-variant/40">
+<div class="flex items-center gap-2 font-label-md text-label-md text-on-surface-variant">
+<span>Catastro Comercial</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span>Periodo de Facturación: Octubre 2024</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-bold">Registro de Suscriptores y Liquidación CRA 943</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary rounded text-label-sm font-label-sm border border-tertiary/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+            Resolución CRA 1040/2024 Aplicada
+          </span>
+<span class="text-outline font-code-sm text-code-sm">Cierre de ciclo: 28 de Octubre</span>
+</div>
+</div>
+<!-- 1. METRICAS COMERCIALES CLAVE (Bento Grid) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Suscriptores Activos (Acueducto Anchor) -->
+<div class="bg-surface-container-lowest p-4 rounded border border-outline-variant/70 relative overflow-hidden shadow-sm flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#0284C7]"></div>
+<div class="flex items-start justify-between">
+<div>
+<p class="text-outline font-label-sm text-label-sm tracking-wide">TOTAL SUSCRIPTORES ACTIVOS</p>
+<h3 class="text-display-lg font-display-lg font-bold text-on-surface mt-1">48,320</h3>
+</div>
+<div class="p-2.5 rounded bg-[#F0F9FF] text-[#0284C7] border border-[#BAE6FD]">
+<span class="material-symbols-outlined text-[24px]">real_estate_agent</span>
+</div>
+</div>
+<div class="mt-3 pt-2.5 border-t border-surface-container-low flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-[#0369A1] font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[16px]">trending_up</span> +342 este mes
+            </span>
+<span class="text-outline font-code-sm text-code-sm">98.2% Con Medidor</span>
+</div>
+</div>
+<!-- Card 2: Recaudo Mensual Vigente -->
+<div class="bg-surface-container-lowest p-4 rounded border border-outline-variant/70 relative overflow-hidden shadow-sm flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-tertiary"></div>
+<div class="flex items-start justify-between">
+<div>
+<p class="text-outline font-label-sm text-label-sm tracking-wide">RECAUDO MENSUAL VIGENTE</p>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-code-md text-code-md text-outline font-semibold">$</span>
+<h3 class="text-display-lg font-display-lg font-bold text-on-surface">3,420M</h3>
+<span class="text-label-sm font-label-sm text-outline">COP</span>
+</div>
+</div>
+<div class="p-2.5 rounded bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">
+<span class="material-symbols-outlined text-[24px]">payments</span>
+</div>
+</div>
+<div class="mt-3 pt-2.5 border-t border-surface-container-low flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-tertiary font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[16px]">check_circle</span> 84.6% meta mensual
+            </span>
+<span class="text-outline font-code-sm text-code-sm">Ciclo 10 Facturado</span>
+</div>
+</div>
+<!-- Card 3: Cartera en Mora (Alcantarillado / Warning Anchor) -->
+<div class="bg-surface-container-lowest p-4 rounded border border-outline-variant/70 relative overflow-hidden shadow-sm flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#DC2626]"></div>
+<div class="flex items-start justify-between">
+<div>
+<p class="text-outline font-label-sm text-label-sm tracking-wide">CARTERA EN MORA (&gt;60 DÍAS)</p>
+<div class="flex items-baseline gap-2 mt-1">
+<h3 class="text-display-lg font-display-lg font-bold text-secondary">4.2%</h3>
+<span class="text-body-sm font-body-sm text-outline">($143.6M)</span>
+</div>
+</div>
+<div class="p-2.5 rounded bg-[#FEF2F2] text-[#DC2626] border border-[#FECACA]">
+<span class="material-symbols-outlined text-[24px]">warning</span>
+</div>
+</div>
+<div class="mt-3 pt-2.5 border-t border-surface-container-low flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-[#B91C1C] font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[16px]">priority_high</span> 1,215 predios corte
+            </span>
+<span class="text-outline font-code-sm text-code-sm">Bajo límite CRA 6.0%</span>
+</div>
+</div>
+<!-- Card 4: Subsidios y Contribuciones Fondo Solidaridad -->
+<div class="bg-surface-container-lowest p-4 rounded border border-outline-variant/70 relative overflow-hidden shadow-sm flex flex-col justify-between">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex items-start justify-between">
+<div>
+<p class="text-outline font-label-sm text-label-sm tracking-wide">FONDO SOLIDARIDAD &amp; SUBSIDIOS</p>
+<div class="flex items-baseline gap-1 mt-1">
+<span class="font-code-md text-code-md text-outline font-semibold">Neto</span>
+<h3 class="text-display-lg font-display-lg font-bold text-on-surface">-$214.8M</h3>
+</div>
+</div>
+<div class="p-2.5 rounded bg-surface-container text-primary border border-outline-variant/40">
+<span class="material-symbols-outlined text-[24px]">account_balance</span>
+</div>
+</div>
+<div class="mt-3 pt-2.5 border-t border-surface-container-low flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-primary font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[16px]">balance</span> Déficit Municipal FSSRI
+            </span>
+<span class="text-outline font-code-sm text-code-sm">Ley 142/94</span>
+</div>
+</div>
+</section>
+<!-- 2. BARRA DE FILTROS AVANZADOS Y BÚSQUEDA CATASTRAL -->
+<section class="bg-surface-container-lowest p-4 rounded border border-outline-variant/70 shadow-sm flex flex-col gap-3">
+<div class="flex flex-wrap lg:flex-nowrap items-center justify-between gap-3">
+<!-- Text Search Multi-Criteria Input -->
+<div class="relative flex-1 min-w-[320px]">
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-outline text-[20px]">badge</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded font-body-sm text-body-sm text-on-surface placeholder:text-outline focus:border-[#0284C7] focus:ring-2 focus:ring-[#0284C7]/20 transition-all font-code-md" placeholder="Buscar por Código de Suscriptor, Póliza catastral, Cédula/NIT o Dirección predial..." type="text" value="CALI-NORTE-2024-"/>
+</div>
+<!-- Stratum Filter -->
+<div class="w-full sm:w-56">
+<div class="flex items-center bg-surface-container-lowest border border-outline-variant rounded px-2.5 py-1.5 focus-within:border-[#0284C7]">
+<span class="material-symbols-outlined text-outline text-[18px] mr-2">density_medium</span>
+<div class="flex-1">
+<span class="block text-[10px] text-outline font-label-sm leading-none">ESTRATIFICACIÓN</span>
+<select class="w-full bg-transparent text-label-md font-label-md text-on-surface border-0 p-0 focus:ring-0 cursor-pointer">
+<option value="all">Todos los Estratos (1 - 6)</option>
+<option value="1">Estrato 1 (Bajo - Bajo: -70% Sub)</option>
+<option value="2">Estrato 2 (Bajo: -40% Sub)</option>
+<option value="3">Estrato 3 (Medio-Bajo: -15% Sub)</option>
+<option selected="" value="4">Estrato 4 (Neutro 0%)</option>
+<option value="5">Estrato 5 (+50% Contribución)</option>
+<option value="6">Estrato 6 (+60% Contribución)</option>
+<option value="com">Comercial (+50% Contribución)</option>
+<option value="ind">Industrial (+30% Contribución)</option>
+<option value="ofi">Oficial (Exento)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Utility Service Checklist Pill -->
+<div class="flex items-center gap-1 bg-surface-container-low p-1 rounded border border-outline-variant/60">
+<button class="px-2.5 py-1 rounded bg-[#0284C7] text-white text-label-sm font-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">water_drop</span> Acueducto
+            </button>
+<button class="px-2.5 py-1 rounded bg-[#DC2626] text-white text-label-sm font-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">plumbing</span> Alcantarillado
+            </button>
+<button class="px-2.5 py-1 rounded bg-[#10B981] text-white text-label-sm font-label-sm flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-[14px]">recycling</span> Aseo CRA 1040
+            </button>
+</div>
+<!-- Actions: Filter Button & Export -->
+<div class="flex items-center gap-2">
+<button class="px-3.5 py-2 rounded bg-surface-container-lowest border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">filter_alt</span>
+<span>Más Filtros</span>
+</button>
+<button class="px-3.5 py-2 rounded bg-[#0284C7] hover:bg-[#0369A1] text-white font-label-md text-label-md flex items-center gap-1.5 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_search</span>
+<span>Filtrar Padrón</span>
+</button>
+</div>
+</div>
+<!-- Active Filter Badges Bar -->
+<div class="flex items-center gap-2 pt-2 border-t border-outline-variant/30 text-body-sm font-body-sm text-outline">
+<span>Filtros activos:</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-surface-container rounded text-on-surface text-label-sm font-label-sm">
+            Municipio: Cali - Zona Norte
+            <button class="hover:text-secondary"><span class="material-symbols-outlined text-[12px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-surface-container rounded text-on-surface text-label-sm font-label-sm">
+            Servicios: Combo Completo AAA
+            <button class="hover:text-secondary"><span class="material-symbols-outlined text-[12px]">close</span></button>
+</span>
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-surface-container rounded text-on-surface text-label-sm font-label-sm">
+            Ciclo Actual: Facturado No Vencido
+            <button class="hover:text-secondary"><span class="material-symbols-outlined text-[12px]">close</span></button>
+</span>
+<a class="text-primary hover:underline text-[11px] ml-auto font-label-sm" href="#">Restablecer todos</a>
+</div>
+</section>
+<!-- 3 & 4. TWO-COLUMN SPLIT: DENSO DATA TABLE & DESGLOSE TARIFARIO REGULADO -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+<!-- 3. TABLA DE DATOS COMERCIAL DENSA Y DETALLADA (8 Cols Desktop) -->
+<div class="lg:col-span-8 bg-surface-container-lowest rounded border border-outline-variant/70 shadow-sm overflow-hidden flex flex-col">
+<!-- Table Header Controls -->
+<div class="px-4 py-3 border-b border-outline-variant/50 flex flex-wrap items-center justify-between gap-3 bg-surface-container-low/40">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">table_rows</span>
+<h4 class="font-headline-sm text-headline-sm font-bold text-on-surface">Padrón de Facturación Multiservicio</h4>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-code-sm text-code-sm">1,480 predios coincidentes</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container" title="Descargar CSV / Excel">
+<span class="material-symbols-outlined text-[18px]">table_view</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container" title="Configurar Columnas">
+<span class="material-symbols-outlined text-[18px]">view_column</span>
+</button>
+<button class="p-1 rounded text-outline hover:text-on-surface hover:bg-surface-container" title="Actualizar Lecturas">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+</button>
+</div>
+</div>
+<!-- Table Wrapper (Horizontal scrollable for high-density regulatory data) -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant/60 text-[11px] font-label-md text-on-surface-variant uppercase tracking-wider">
+<th class="py-2.5 px-3">Cuenta Contrato</th>
+<th class="py-2.5 px-3">Suscriptor / Razón Social</th>
+<th class="py-2.5 px-3">Dirección &amp; Barrio</th>
+<th class="py-2.5 px-2 text-center">Estrato</th>
+<th class="py-2.5 px-3">Servicios AAA</th>
+<th class="py-2.5 px-3 text-right">Consumo Reciente</th>
+<th class="py-2.5 px-3 text-right">Liquidación Total</th>
+<th class="py-2.5 px-2 text-center">Estado Pago</th>
+<th class="py-2.5 px-3 text-center">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30 font-body-sm text-body-sm">
+<!-- ROW 1 (Highlighted Active Selection) -->
+<tr class="bg-[#F0F9FF]/40 hover:bg-surface-container-low/60 transition-colors border-l-4 border-l-[#0284C7] cursor-pointer">
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="font-code-md text-code-md font-bold text-primary">CTA-8839201</div>
+<div class="text-[10px] text-outline font-code-sm">POL: 7600101004</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="font-semibold text-on-surface">HERNANDO MONTOYA GÓMEZ</div>
+<div class="text-[11px] text-outline">CC: 16.782.901 • Residencial</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface text-[12px]">Cra. 4N # 12-48 Apto 402</div>
+<div class="text-[11px] text-outline">Comuna 2 • San Antonio</div>
+</td>
+<td class="py-2.5 px-2 text-center">
+<span class="inline-block px-1.5 py-0.5 rounded bg-surface-container-highest text-on-surface font-bold text-[11px] border border-outline-variant">
+                      E-4
+                    </span>
+</td>
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1">
+<!-- Acueducto Badge -->
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F0F9FF] text-[#0369A1] border border-[#BAE6FD]" title="Acueducto Activo">ACU</span>
+<!-- Alcantarillado Badge -->
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#FEF2F2] text-[#B91C1C] border border-[#FECACA]" title="Alcantarillado Activo">ALC</span>
+<!-- Aseo Badge -->
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]" title="Aseo CRA 1040">ASE</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="text-on-surface font-semibold">18.4 m³</div>
+<div class="text-[10px] text-outline font-code-sm">0.12 Ton Aseo</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="font-bold text-on-surface">$128,450</div>
+<div class="text-[10px] text-outline">Subsidio: $0 (E-4)</div>
+</td>
+<td class="py-2.5 px-2 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                      Al Día
+                    </span>
+</td>
+<td class="py-2.5 px-3 text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1 text-outline">
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded" title="Ver Factura Electrónica DIAN">
+<span class="material-symbols-outlined text-[16px]">receipt</span>
+</button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded" title="Histórico de Consumo CRA">
+<span class="material-symbols-outlined text-[16px]">query_stats</span>
+</button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded" title="Generar Duplicado">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- ROW 2: Estrato 1 con Subsidio -->
+<tr class="hover:bg-surface-container-low/40 transition-colors border-l-4 border-l-transparent">
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="font-code-md text-code-md font-bold text-primary">CTA-8839202</div>
+<div class="text-[10px] text-outline font-code-sm">POL: 7600101005</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="font-semibold text-on-surface">MARÍA DEL PILAR CAICEDO</div>
+<div class="text-[11px] text-outline">CC: 31.450.881 • Residencial</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface text-[12px]">Calle 48B # 28E-11</div>
+<div class="text-[11px] text-outline">Comuna 13 • El Poblado I</div>
+</td>
+<td class="py-2.5 px-2 text-center">
+<span class="inline-block px-1.5 py-0.5 rounded bg-tertiary/10 text-tertiary font-bold text-[11px] border border-tertiary/20">
+                      E-1
+                    </span>
+</td>
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F0F9FF] text-[#0369A1] border border-[#BAE6FD]">ACU</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#FEF2F2] text-[#B91C1C] border border-[#FECACA]">ALC</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">ASE</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="text-on-surface font-semibold">12.0 m³</div>
+<div class="text-[10px] text-outline font-code-sm">0.08 Ton Aseo</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="font-bold text-on-surface">$24,800</div>
+<div class="text-[10px] text-tertiary font-semibold">Subsidio: -$57,860</div>
+</td>
+<td class="py-2.5 px-2 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                      Al Día
+                    </span>
+</td>
+<td class="py-2.5 px-3 text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1 text-outline">
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">receipt</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">query_stats</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">content_copy</span></button>
+</div>
+</td>
+</tr>
+<!-- ROW 3: En Mora (Corte / Suspensión) -->
+<tr class="hover:bg-surface-container-low/40 transition-colors border-l-4 border-l-[#DC2626] bg-[#FEF2F2]/20">
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="font-code-md text-code-md font-bold text-[#DC2626]">CTA-8839215</div>
+<div class="text-[10px] text-outline font-code-sm">POL: 7600101089</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="font-semibold text-on-surface">INDUSTRIAS DEL PLÁSTICO S.A.S.</div>
+<div class="text-[11px] text-outline">NIT: 900.832.119-4 • Industrial</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface text-[12px]">Av. 6N # 44N-90 Bodega 3</div>
+<div class="text-[11px] text-outline">Zona Industrial Yumbo</div>
+</td>
+<td class="py-2.5 px-2 text-center">
+<span class="inline-block px-1.5 py-0.5 rounded bg-secondary-fixed text-secondary font-bold text-[11px] border border-secondary/20">
+                      IND
+                    </span>
+</td>
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F0F9FF] text-[#0369A1] border border-[#BAE6FD]">ACU</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#FEF2F2] text-[#B91C1C] border border-[#FECACA]">ALC</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="text-on-surface font-semibold">142.5 m³</div>
+<div class="text-[10px] text-outline font-code-sm">Aseo Privado</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="font-bold text-[#DC2626]">$2,418,900</div>
+<div class="text-[10px] text-secondary font-semibold">3 Periodos (Vencido)</div>
+</td>
+<td class="py-2.5 px-2 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#FEF2F2] text-[#DC2626] border border-[#FECACA]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#DC2626]"></span>
+                      En Mora
+                    </span>
+</td>
+<td class="py-2.5 px-3 text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1 text-outline">
+<button class="p-1 hover:text-secondary hover:bg-surface-container rounded" title="Generar Orden de Suspensión"><span class="material-symbols-outlined text-[16px]">cancel_presentation</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">query_stats</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">content_copy</span></button>
+</div>
+</td>
+</tr>
+<!-- ROW 4: Reclamación PQR en trámite -->
+<tr class="hover:bg-surface-container-low/40 transition-colors border-l-4 border-l-transparent">
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="font-code-md text-code-md font-bold text-primary">CTA-8839240</div>
+<div class="text-[10px] text-outline font-code-sm">POL: 7600101112</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="font-semibold text-on-surface">DISTRIBUIDORA COMERCIAL ALBA</div>
+<div class="text-[11px] text-outline">NIT: 890.312.455-1 • Comercial</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface text-[12px]">Calle 13 # 8-22 Local 101</div>
+<div class="text-[11px] text-outline">Comuna 3 • Centro Histórico</div>
+</td>
+<td class="py-2.5 px-2 text-center">
+<span class="inline-block px-1.5 py-0.5 rounded bg-primary-fixed/40 text-primary font-bold text-[11px] border border-primary/20">
+                      COM
+                    </span>
+</td>
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F0F9FF] text-[#0369A1] border border-[#BAE6FD]">ACU</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#FEF2F2] text-[#B91C1C] border border-[#FECACA]">ALC</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">ASE</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="text-on-surface font-semibold">34.1 m³</div>
+<div class="text-[10px] text-outline font-code-sm">0.45 Ton Aseo</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="font-bold text-on-surface">$384,120</div>
+<div class="text-[10px] text-outline">+50% Contribución</div>
+</td>
+<td class="py-2.5 px-2 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-surface-container-highest text-on-surface border border-outline-variant">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                      PQR #48192
+                    </span>
+</td>
+<td class="py-2.5 px-3 text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1 text-outline">
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">receipt</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">support_agent</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">content_copy</span></button>
+</div>
+</td>
+</tr>
+<!-- ROW 5: Estrato 3 Residencial Normal -->
+<tr class="hover:bg-surface-container-low/40 transition-colors border-l-4 border-l-transparent">
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="font-code-md text-code-md font-bold text-primary">CTA-8839255</div>
+<div class="text-[10px] text-outline font-code-sm">POL: 7600101140</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="font-semibold text-on-surface">ALBERTO JARAMILLO DUQUE</div>
+<div class="text-[11px] text-outline">CC: 70.192.443 • Residencial</div>
+</td>
+<td class="py-2.5 px-3">
+<div class="text-on-surface text-[12px]">Cra. 85C # 16-10 Casa 12</div>
+<div class="text-[11px] text-outline">Comuna 17 • El Ingenio</div>
+</td>
+<td class="py-2.5 px-2 text-center">
+<span class="inline-block px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-bold text-[11px] border border-outline-variant">
+                      E-3
+                    </span>
+</td>
+<td class="py-2.5 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1">
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#F0F9FF] text-[#0369A1] border border-[#BAE6FD]">ACU</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#FEF2F2] text-[#B91C1C] border border-[#FECACA]">ALC</span>
+<span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">ASE</span>
+</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="text-on-surface font-semibold">16.0 m³</div>
+<div class="text-[10px] text-outline font-code-sm">0.11 Ton Aseo</div>
+</td>
+<td class="py-2.5 px-3 text-right whitespace-nowrap font-code-md">
+<div class="font-bold text-on-surface">$89,200</div>
+<div class="text-[10px] text-tertiary">Subsidio: -$15,740</div>
+</td>
+<td class="py-2.5 px-2 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-[#ECFDF5] text-[#047857] border border-[#A7F3D0]">
+<span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                      Al Día
+                    </span>
+</td>
+<td class="py-2.5 px-3 text-center whitespace-nowrap">
+<div class="flex items-center justify-center gap-1 text-outline">
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">receipt</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">query_stats</span></button>
+<button class="p-1 hover:text-primary hover:bg-surface-container rounded"><span class="material-symbols-outlined text-[16px]">content_copy</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer Pagination -->
+<div class="px-4 py-2.5 bg-surface-container-lowest border-t border-outline-variant/50 flex flex-wrap items-center justify-between gap-3 text-body-sm font-body-sm">
+<span class="text-outline text-xs">
+              Mostrando <strong class="text-on-surface">1 - 5</strong> de <strong class="text-on-surface">1,480</strong> registros comerciales
+            </span>
+<div class="flex items-center gap-1">
+<button class="px-2 py-1 border border-outline-variant rounded text-outline hover:text-on-surface disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[14px]">first_page</span>
+</button>
+<button class="px-2 py-1 border border-outline-variant rounded text-outline hover:text-on-surface disabled:opacity-40" disabled="">
+<span class="material-symbols-outlined text-[14px]">chevron_left</span>
+</button>
+<span class="px-2.5 py-1 rounded bg-primary text-on-primary font-bold text-xs">1</span>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container text-xs text-on-surface">2</button>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container text-xs text-on-surface">3</button>
+<span class="px-1 text-outline">...</span>
+<button class="px-2.5 py-1 rounded hover:bg-surface-container text-xs text-on-surface">296</button>
+<button class="px-2 py-1 border border-outline-variant rounded text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+</button>
+<button class="px-2 py-1 border border-outline-variant rounded text-outline hover:text-on-surface">
+<span class="material-symbols-outlined text-[14px]">last_page</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 4. PANEL LATERAL DE DESGLOSE DE LIQUIDACIÓN TARIFARIA REGULADA (4 Cols Desktop) -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<!-- Card de Desglose Tarifario CRA Suscriptor Seleccionado -->
+<div class="bg-surface-container-lowest rounded border border-outline-variant/70 shadow-sm overflow-hidden">
+<!-- Header -->
+<div class="p-3.5 bg-surface-container-low border-b border-outline-variant/50 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">calculate</span>
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">Liquidación Regulada CRA</span>
+</div>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-code-sm text-code-sm">CTA-8839201</span>
+</div>
+<div class="p-4 flex flex-col gap-4">
+<!-- Resumen del Predio Seleccionado -->
+<div class="p-2.5 bg-surface-container-low/50 rounded border border-outline-variant/40 flex justify-between items-center text-xs">
+<div>
+<span class="text-outline block">Suscriptor Seleccionado:</span>
+<strong class="text-on-surface font-semibold">Hernando Montoya Gómez</strong>
+</div>
+<div class="text-right">
+<span class="text-outline block">Estrato Catastral:</span>
+<span class="inline-block px-1.5 py-0.2 rounded bg-surface-container text-primary font-bold">Estrato 4 (Neutro)</span>
+</div>
+</div>
+<!-- Componente 1: ACUEDUCTO (Resolución CRA 688/943) -->
+<div class="flex flex-col gap-1.5 border-l-2 border-[#0284C7] pl-3">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-[#0369A1] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">water_drop</span>
+                    1. Acueducto (Consumo: 18.4 m³)
+                  </span>
+<span class="font-code-md text-code-md font-bold text-on-surface">$59,820</span>
+</div>
+<div class="text-[11px] text-outline space-y-0.5 font-code-sm">
+<div class="flex justify-between">
+<span>Cargo Fijo (CMA):</span>
+<span class="text-on-surface">$12,450 COP/mes</span>
+</div>
+<div class="flex justify-between">
+<span>Consumo Básico (16.0 m³ × $2,410):</span>
+<span class="text-on-surface">$38,560 COP</span>
+</div>
+<div class="flex justify-between">
+<span>Consumo Complementario (2.4 m³ × $3,670):</span>
+<span class="text-on-surface">$8,810 COP</span>
+</div>
+</div>
+</div>
+<!-- Componente 2: ALCANTARILLADO (Resolución CRA 688) -->
+<div class="flex flex-col gap-1.5 border-l-2 border-[#DC2626] pl-3">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-[#B91C1C] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">plumbing</span>
+                    2. Alcantarillado (Vertimientos: 18.4 m³)
+                  </span>
+<span class="font-code-md text-code-md font-bold text-on-surface">$42,380</span>
+</div>
+<div class="text-[11px] text-outline space-y-0.5 font-code-sm">
+<div class="flex justify-between">
+<span>Cargo Fijo Vertimientos (CMI):</span>
+<span class="text-on-surface">$9,850 COP/mes</span>
+</div>
+<div class="flex justify-between">
+<span>Tasa Retributiva y Tratamiento:</span>
+<span class="text-on-surface">$32,530 COP</span>
+</div>
+</div>
+</div>
+<!-- Componente 3: ASEO INTEGRAL (Marco CRA 1040 / Resol. 720) -->
+<div class="flex flex-col gap-1.5 border-l-2 border-[#10B981] pl-3">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-[#047857] font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">recycling</span>
+                    3. Aseo &amp; Limpieza (CRA 1040)
+                  </span>
+<span class="font-code-md text-code-md font-bold text-on-surface">$26,250</span>
+</div>
+<div class="text-[11px] text-outline space-y-0.5 font-code-sm">
+<div class="flex justify-between">
+<span>CBL (Barrido y Limpieza Pública):</span>
+<span class="text-on-surface">$6,120 COP</span>
+</div>
+<div class="flex justify-between">
+<span>CRT (Recolección y Transporte):</span>
+<span class="text-on-surface">$11,400 COP</span>
+</div>
+<div class="flex justify-between">
+<span>CDF (Disposición Final Relleno Yotoco):</span>
+<span class="text-on-surface">$5,830 COP</span>
+</div>
+<div class="flex justify-between">
+<span>VBA (Incentivo Aprovechamiento Reciclaje):</span>
+<span class="text-on-surface">$2,900 COP</span>
+</div>
+</div>
+</div>
+<!-- Balance Subsidios vs Contribución Ley 142 -->
+<div class="p-3 bg-surface-container rounded border border-outline-variant/50">
+<div class="flex justify-between text-xs font-semibold text-on-surface mb-1">
+<span>Balance Fondo Solidaridad (Estrato 4):</span>
+<span class="font-code-md">$0 COP (Neutro)</span>
+</div>
+<p class="text-[10px] text-outline leading-tight">
+                  De acuerdo con el Art. 89 de la Ley 142/94, los usuarios en Estrato 4 cancelan el costo real del servicio sin subsidio ni sobrecosto de contribución.
+                </p>
+</div>
+<!-- TOTAL LIQUIDADO -->
+<div class="pt-3 border-t-2 border-outline-variant flex items-center justify-between">
+<div>
+<span class="text-xs text-outline font-label-md block">TOTAL A COBRAR PERIODO:</span>
+<span class="text-[11px] text-tertiary font-semibold flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[14px]">verified</span> Factura DIAN CUFE Generado
+                  </span>
+</div>
+<div class="text-right">
+<span class="text-headline-xl font-headline-xl font-extrabold text-primary font-code-md leading-none">$128,450</span>
+<span class="text-[10px] text-outline block mt-0.5">Vencimiento: 15/Nov/2024</span>
+</div>
+</div>
+<!-- Acciones Operativas del Desglose -->
+<div class="grid grid-cols-2 gap-2 mt-1">
+<button class="py-2 px-3 rounded bg-[#0284C7] hover:bg-[#0369A1] text-white font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
+<span>Ver PDF DIAN</span>
+</button>
+<button class="py-2 px-3 rounded bg-surface-container-lowest border border-outline-variant hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-1.5 transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Notificar Email</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Institutional Regulatory Note Banner -->
+<div class="bg-surface-container-lowest p-3.5 rounded border border-outline-variant/70 shadow-sm flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-[22px] mt-0.5">account_balance</span>
+<div class="flex-1 text-xs">
+<span class="font-bold text-on-surface block">Marco Regulatorio Vigente Superservicios</span>
+<p class="text-outline text-[11px] mt-0.5 leading-relaxed">
+                Tarifas indexadas por IPC / IPP acumulado a Septiembre 2024 conforme a fórmula tarifaria CRA 943 de 2021 y Decreto 1077.
+              </p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
